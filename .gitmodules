@@ -1,0 +1,3 @@
+[submodule "Satoshi/vendor/spdlog"]
+	path = Satoshi/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
