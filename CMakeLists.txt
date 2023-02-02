@@ -13,7 +13,7 @@ set(SATOSHI_LIBS
     spdlogd
 )
 
-set(SANDBOX_LIBS
+set(COMMON_LIBS
     wxbase33ud
     wxmsw33ud_core
 )
@@ -39,12 +39,13 @@ if(WIN32)
 target_compile_definitions(Satoshi PUBLIC ST_PLATFORM_WINDOWS)
 endif()
 target_compile_definitions(Satoshi PRIVATE ST_BUILD_DLL)
-target_include_directories(Satoshi PRIVATE "./Satoshi/src/include/" "./install/include/")
+target_include_directories(Satoshi PRIVATE "./Satoshi/src/include/" "./install/include/" "./install/include/msvc/")
 target_link_directories(Satoshi PRIVATE "./install/lib")
-target_link_libraries(Satoshi PRIVATE ${SATOSHI_LIBS})
+target_link_libraries(Satoshi PRIVATE ${SATOSHI_LIBS} ${COMMON_LIBS})
+target_precompile_headers(Satoshi PRIVATE "./Satoshi/src/include/stpch.hpp")
 
 add_executable(Sandbox ${WINDOW_ARG} ${SANDBOX_HEADERS} ${SANDBOX_SOURCES})
 target_include_directories(Sandbox PRIVATE "./Satoshi/src/include/" "./Sandbox/src/include/" "./install/include" "./install/include/msvc/")
 target_compile_definitions(Sandbox PRIVATE _UNICODE)
 target_link_directories(Sandbox PRIVATE "./install/lib/vc_x64_lib" "./install/lib")
-target_link_libraries(Sandbox PRIVATE Satoshi ${SANDBOX_LIBS})
+target_link_libraries(Sandbox PRIVATE Satoshi ${COMMON_LIBS})
