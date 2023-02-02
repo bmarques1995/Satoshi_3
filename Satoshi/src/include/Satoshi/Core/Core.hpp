@@ -9,5 +9,6 @@
 	#endif
 #endif // ST_PLATFORM_WINDOWS
 
+#define BIT(x) (1 << x)
 
 #endif //CORE_HPP
