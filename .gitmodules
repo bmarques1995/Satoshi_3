@@ -4,3 +4,12 @@
 [submodule "Satoshi/vendor/wx_widgets"]
 	path = Satoshi/vendor/wx_widgets
 	url = https://github.com/wxWidgets/wxWidgets.git
+[submodule "Satoshi/vendor/glad"]
+	path = Satoshi/vendor/glad
+	url = https://github.com/bmarques1995/glad.git
+[submodule "Satoshi/vendor/vulkan/vulkan_headers"]
+	path = Satoshi/vendor/vulkan/vulkan_headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git
+[submodule "Satoshi/vendor/vulkan/vulkan_loader"]
+	path = Satoshi/vendor/vulkan/vulkan_loader
+	url = https://github.com/KhronosGroup/Vulkan-Loader.git
