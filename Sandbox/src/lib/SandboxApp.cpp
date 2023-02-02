@@ -1,2 +1,6 @@
 #include "Satoshi.hpp"
-#include "Satoshi/Core/Entrypoint.hpp"
+
+#include "MainApplication.hpp"
+
+IMPLEMENT_APP(MainApplication);
+

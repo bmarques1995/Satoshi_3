@@ -1,3 +1,6 @@
 [submodule "Satoshi/vendor/spdlog"]
 	path = Satoshi/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Satoshi/vendor/wx_widgets"]
+	path = Satoshi/vendor/wx_widgets
+	url = https://github.com/wxWidgets/wxWidgets.git

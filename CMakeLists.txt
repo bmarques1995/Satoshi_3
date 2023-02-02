@@ -13,6 +13,11 @@ set(SATOSHI_LIBS
     spdlogd
 )
 
+set(SANDBOX_LIBS
+    wxbase33ud
+    wxmsw33ud_core
+)
+
 set(WINDOW_ARG)
 
 if(WIN32)
@@ -39,5 +44,7 @@ target_link_directories(Satoshi PRIVATE "./install/lib")
 target_link_libraries(Satoshi PRIVATE ${SATOSHI_LIBS})
 
 add_executable(Sandbox ${WINDOW_ARG} ${SANDBOX_HEADERS} ${SANDBOX_SOURCES})
-target_include_directories(Sandbox PRIVATE "./Satoshi/src/include/" "./Sandbox/src/include/" "./install/include")
-target_link_libraries(Sandbox PRIVATE Satoshi)
+target_include_directories(Sandbox PRIVATE "./Satoshi/src/include/" "./Sandbox/src/include/" "./install/include" "./install/include/msvc/")
+target_compile_definitions(Sandbox PRIVATE _UNICODE)
+target_link_directories(Sandbox PRIVATE "./install/lib/vc_x64_lib" "./install/lib")
+target_link_libraries(Sandbox PRIVATE Satoshi ${SANDBOX_LIBS})
