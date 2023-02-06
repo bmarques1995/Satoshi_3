@@ -8,7 +8,7 @@ Satoshi::Application::Application(StWindowHandle windowHandle, uint32_t width, u
 	m_WindowHandle = windowHandle;
 	m_Width = width;
 	m_Height = height;
-	m_Context.reset(GraphicsContext::Create(GRAPHICS_API::D3D12));
+	m_Context.reset(GraphicsContext::Create(GRAPHICS_API::D3D11));
 }
 
 Satoshi::Application::~Application()

@@ -4,7 +4,7 @@ GraphicsWindow::GraphicsWindow(wxFrame* parent) :
 	wxFrame(parent, wxID_ANY, "Graphics Context", wxDefaultPosition, wxSize(960,540))
 {
 	Show(true);
-	auto size = this->GetSize();
+	auto size = this->GetClientSize();
 	m_Application = new Satoshi::Application((HWND)GetHandle(), size.x, size.y);
 }
 
