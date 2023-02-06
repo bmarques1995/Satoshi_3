@@ -1,10 +1,12 @@
 #include "Satoshi/Core/Application.hpp"
+#include "Satoshi/Core/Console.hpp"
 
 Satoshi::Application* Satoshi::Application::s_Instance;
 
 Satoshi::Application::Application(StWindowHandle windowHandle, uint32_t width, uint32_t height)
 {
 	s_Instance = this;
+	Satoshi::Console::Init();
 	m_WindowHandle = windowHandle;
 	m_Width = width;
 	m_Height = height;
@@ -13,6 +15,7 @@ Satoshi::Application::Application(StWindowHandle windowHandle, uint32_t width, u
 
 Satoshi::Application::~Application()
 {
+	Satoshi::Console::End();
 }
 
 StWindowHandle Satoshi::Application::GetNativeWindow()

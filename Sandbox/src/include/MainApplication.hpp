@@ -3,6 +3,7 @@
 
 #include "MainWindow.hpp"
 #include "GraphicsWindow.hpp"
+#include "RenderTimer.hpp"
 #include "Satoshi.hpp"
 #include "Satoshi/Events/KeyEvent.hpp"
 
@@ -22,7 +23,7 @@ public:
 private:
     MainWindow* m_Window;
     GraphicsWindow* m_GraphicsWindow;
-    
+    RenderTimer* m_RenderTimer;
 };
 
 

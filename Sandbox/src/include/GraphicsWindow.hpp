@@ -15,9 +15,13 @@ public:
     GraphicsWindow(wxFrame* parent = nullptr);
     ~GraphicsWindow();
 
-    void MyUpdate();
+    void Notify();
+
+    void OnPaint(wxPaintEvent& e);
+    void OnDestroy(wxWindowDestroyEvent& e);
 private:
-    Satoshi::Application* m_Application;
+    std::unique_ptr<Satoshi::Application> m_Application;
+    bool m_Destroyed = false;
 };
 
 
