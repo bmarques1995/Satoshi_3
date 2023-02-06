@@ -13,3 +13,9 @@
 [submodule "Satoshi/vendor/vulkan/vulkan_loader"]
 	path = Satoshi/vendor/vulkan/vulkan_loader
 	url = https://github.com/KhronosGroup/Vulkan-Loader.git
+[submodule "Satoshi/vendor/eigen3"]
+	path = Satoshi/vendor/eigen3
+	url = https://gitlab.com/libeigen/eigen.git
+[submodule "Satoshi/vendor/nlohmann_json"]
+	path = Satoshi/vendor/nlohmann_json
+	url = https://github.com/nlohmann/json.git
