@@ -124,8 +124,8 @@ void Satoshi::VKContext::NewFrame()
 
 void Satoshi::VKContext::EndFrame()
 {
-    vkWaitForFences(m_LogicalDevice, 1, &m_Fence, VK_TRUE, UINT64_MAX);
-    vkResetFences(m_LogicalDevice, 1, &m_Fence);
+    //vkGetFenceStatus();
+    vkDeviceWaitIdle(m_LogicalDevice);
 }
 
 void Satoshi::VKContext::Present()
@@ -168,7 +168,9 @@ void Satoshi::VKContext::Present()
 
 void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
 {
-    
+    vkDeviceWaitIdle(m_LogicalDevice);
+
+    RecreateSwapchain();
 }
 
 void Satoshi::VKContext::CreateInstance()
