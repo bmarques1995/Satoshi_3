@@ -5,15 +5,6 @@
 #include <stpch.hpp>
 
 #include "Satoshi/Renderer/RendererAPI.hpp"
-
-#ifdef ST_PLATFORM_WINDOWS
-#include <windows.h>
-
-typedef HWND StWindowHandle;
-#else
-#error API not implemented
-#endif
-
 #include "Satoshi/Renderer/GraphicsContext.hpp"
 
 namespace Satoshi
