@@ -11,8 +11,8 @@ Satoshi::D3D11Context::D3D11Context()
     m_ClearColor[2] = .3f;
     m_ClearColor[3] = 1.0f;
 
-    CreateDeviceAndSwapchain();
     CreateAdapter();
+    CreateDeviceAndSwapchain();
     CreateRenderTarget();
     CreateViewport(Application::GetInstance()->GetWidth(), Application::GetInstance()->GetHeight());
 }
@@ -95,11 +95,11 @@ void Satoshi::D3D11Context::CreateDeviceAndSwapchain()
     HRESULT hr;
     hr = D3D11CreateDeviceAndSwapChain
     (
-        NULL,
+        nullptr,
         D3D_DRIVER_TYPE_HARDWARE,
-        NULL,
+        nullptr,
         flags,
-        NULL,
+        nullptr,
         0,
         D3D11_SDK_VERSION,
         &sd,
@@ -117,13 +117,13 @@ void Satoshi::D3D11Context::CreateAdapter()
     IDXGIFactory4* dxgiFactory = nullptr;
     HRESULT hr = CreateDXGIFactory1(IID_PPV_ARGS(&dxgiFactory));
     
-    hr = dxgiFactory->EnumAdapters1(0, m_Adapter.GetAddressOf());
+    hr = dxgiFactory->EnumAdapters(0, m_Adapter.GetAddressOf());
     assert(hr == S_OK);
 
-#if 0
-    auto adapterDescription = DXGI_ADAPTER_DESC1();
-    m_Adapter->GetDesc1(&adapterDescription);
-#endif
+
+    auto adapterDescription = DXGI_ADAPTER_DESC();
+    m_Adapter->GetDesc(&adapterDescription);
+
 
     dxgiFactory->Release();
 }

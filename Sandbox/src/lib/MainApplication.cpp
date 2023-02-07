@@ -4,7 +4,7 @@ bool MainApplication::OnInit()
 {
     
     m_Window = new MainWindow();
-    m_GraphicsWindow = new GraphicsWindow(m_Window);
+    m_GraphicsWindow = new GraphicsWindow(nullptr);
     m_RenderTimer = new RenderTimer(m_GraphicsWindow);
     m_RenderTimer->MyStart();
 

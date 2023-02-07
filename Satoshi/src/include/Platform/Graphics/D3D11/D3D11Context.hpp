@@ -46,7 +46,7 @@ namespace Satoshi
         ComPtr<ID3D11Device> m_Device;
         ComPtr<ID3D11DeviceContext> m_DeviceContext;
         ComPtr<IDXGISwapChain> m_SwapChain;
-        ComPtr<IDXGIAdapter1> m_Adapter;
+        ComPtr<IDXGIAdapter> m_Adapter;
         ComPtr<ID3D11RenderTargetView> m_RenderTargetView;
 
         D3D11_VIEWPORT m_Viewport;
