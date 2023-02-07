@@ -36,6 +36,8 @@ namespace Satoshi
         virtual bool IsVSync() override;
         virtual void SetVSync(bool isVSync) override;
 
+        virtual void GetGPUName(std::string* output) override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
 
     private:

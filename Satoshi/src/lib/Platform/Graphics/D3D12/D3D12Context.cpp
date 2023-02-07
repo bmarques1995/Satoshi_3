@@ -101,6 +101,14 @@ void Satoshi::D3D12Context::SetVSync(bool isVSync)
 	m_VSync = isVSync;
 }
 
+void Satoshi::D3D12Context::GetGPUName(std::string* output)
+{
+	auto adapterDescription = DXGI_ADAPTER_DESC();
+	m_Adapter->GetDesc(&adapterDescription);
+	std::wstring name = adapterDescription.Description;
+	*output = std::string(name.begin(), name.end());
+}
+
 void Satoshi::D3D12Context::OnResize(WindowResizeEvent& e)
 {
 	WaitLastFrame();

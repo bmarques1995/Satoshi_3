@@ -23,6 +23,8 @@ namespace Satoshi
         virtual bool IsVSync() = 0;
         virtual void SetVSync(bool isVSync) = 0;
 
+        virtual void GetGPUName(std::string* output) = 0;
+
         virtual void OnResize(WindowResizeEvent&) = 0;
 
         static GraphicsContext* Create(GRAPHICS_API api);

@@ -177,6 +177,11 @@ void Satoshi::VKContext::SetVSync(bool isVSync)
     RecreateSwapchain();
 }
 
+void Satoshi::VKContext::GetGPUName(std::string* output)
+{
+    *output = m_DeviceProperties.deviceName;
+}
+
 void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
 {
     vkDeviceWaitIdle(m_LogicalDevice);

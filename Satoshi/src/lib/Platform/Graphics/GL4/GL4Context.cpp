@@ -1,4 +1,4 @@
-#include "Platform/Graphics/GL4/GL4Context.hpp"
+﻿#include "Platform/Graphics/GL4/GL4Context.hpp"
 #include <cassert>
 #include "Satoshi/Core/Application.hpp"
 
@@ -83,6 +83,14 @@ bool Satoshi::GL4Context::IsVSync()
 void Satoshi::GL4Context::SetVSync(bool isVSync)
 {
     m_VSync = isVSync;
+}
+
+void Satoshi::GL4Context::GetGPUName(std::string* output)
+{
+    std::stringstream ss;
+  
+    ss << (const char*) glGetString(GL_RENDERER);
+    *output = ss.str();
 }
 
 void Satoshi::GL4Context::OnResize(WindowResizeEvent& e)
