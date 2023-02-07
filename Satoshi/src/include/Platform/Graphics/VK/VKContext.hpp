@@ -42,6 +42,9 @@ namespace Satoshi
         virtual void EndFrame() override;
         virtual void Present() override;
 
+        virtual bool IsVSync() override;
+        virtual void SetVSync(bool isVSync) override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
 
     private:
@@ -78,6 +81,8 @@ namespace Satoshi
         VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
         VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
         VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, HWND window);
+
+        bool m_VSync;
 
         VkInstance m_Instance;
         VkSurfaceKHR m_Surface;

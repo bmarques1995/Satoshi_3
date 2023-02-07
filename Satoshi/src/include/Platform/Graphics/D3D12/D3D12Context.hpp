@@ -46,6 +46,9 @@ namespace Satoshi
         virtual void EndFrame() override;
         virtual void Present() override;
 
+        virtual bool IsVSync() override;
+        virtual void SetVSync(bool isVSync) override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
     private:
 
@@ -64,6 +67,8 @@ namespace Satoshi
         void WaitLastFrame();
 
         void CleanupRenderTargetView();
+
+        bool m_VSync;
 
         ComPtr<ID3D12Device> m_Device;
         ComPtr<ID3D12DescriptorHeap> m_RenderTargetViewDescHeap;

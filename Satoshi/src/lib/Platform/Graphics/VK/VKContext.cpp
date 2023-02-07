@@ -166,6 +166,17 @@ void Satoshi::VKContext::Present()
     vkQueuePresentKHR(m_PresentQueue, &presentInfo);
 }
 
+bool Satoshi::VKContext::IsVSync()
+{
+    return m_VSync;
+}
+
+void Satoshi::VKContext::SetVSync(bool isVSync)
+{
+    m_VSync = isVSync;
+    RecreateSwapchain();
+}
+
 void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
 {
     vkDeviceWaitIdle(m_LogicalDevice);
@@ -735,13 +746,26 @@ VkSurfaceFormatKHR Satoshi::VKContext::ChooseSwapSurfaceFormat(const std::vector
 
 VkPresentModeKHR Satoshi::VKContext::ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes)
 {
-    for (const auto& availablePresentMode : availablePresentModes) {
-        if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
-            return availablePresentMode;
+    if (m_VSync)
+    {
+        for (const auto& availablePresentMode : availablePresentModes) {
+            if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+                return availablePresentMode;
+            }
         }
-    }
 
-    return VK_PRESENT_MODE_FIFO_KHR;
+        return VK_PRESENT_MODE_FIFO_KHR;
+    }
+    else
+    {
+        for (const auto& availablePresentMode : availablePresentModes) {
+            if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR) {
+                return availablePresentMode;
+            }
+        }
+
+        return VK_PRESENT_MODE_FIFO_RELAXED_KHR;
+    }
 }
 
 VkExtent2D Satoshi::VKContext::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, HWND window)

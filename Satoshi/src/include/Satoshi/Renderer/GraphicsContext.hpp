@@ -20,6 +20,9 @@ namespace Satoshi
         virtual void EndFrame() = 0;
         virtual void Present() = 0;
 
+        virtual bool IsVSync() = 0;
+        virtual void SetVSync(bool isVSync) = 0;
+
         virtual void OnResize(WindowResizeEvent&) = 0;
 
         static GraphicsContext* Create(GRAPHICS_API api);

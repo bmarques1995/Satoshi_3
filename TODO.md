@@ -3,12 +3,12 @@
 ## Todo
 
 - [ ] Context Interface 
-  - [ ] Move VSync control to Graphics Context  
+  - [X] Move VSync control to Graphics Context  
   - [ ] Retrieve GPU Name  
 
 ## In Progress
 
-- [|] Work on Github Repo [JIRA-345]  
+- [ ] Work on Github Repo [JIRA-345]  
 
 ## Done ✓
 

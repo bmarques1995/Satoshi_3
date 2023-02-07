@@ -23,7 +23,17 @@ Satoshi::D3D11Context::~D3D11Context()
 
 void Satoshi::D3D11Context::Present()
 {
-    m_SwapChain->Present(1, 0);
+    m_SwapChain->Present(m_VSync ? 1 : 0, 0);
+}
+
+bool Satoshi::D3D11Context::IsVSync()
+{
+    return m_VSync;
+}
+
+void Satoshi::D3D11Context::SetVSync(bool isVSync)
+{
+    m_VSync = isVSync;
 }
 
 void Satoshi::D3D11Context::OnResize(WindowResizeEvent& e)

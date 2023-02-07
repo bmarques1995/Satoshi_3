@@ -33,6 +33,9 @@ namespace Satoshi
         virtual void EndFrame() override;
         virtual void Present() override;
 
+        virtual bool IsVSync() override;
+        virtual void SetVSync(bool isVSync) override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
 
     private:
@@ -42,6 +45,7 @@ namespace Satoshi
         void CreateViewport(uint32_t width, uint32_t height);
 
         float m_ClearColor[4];
+        bool m_VSync;
 
         ComPtr<ID3D11Device> m_Device;
         ComPtr<ID3D11DeviceContext> m_DeviceContext;

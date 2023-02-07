@@ -88,7 +88,17 @@ void Satoshi::D3D12Context::EndFrame()
 
 void Satoshi::D3D12Context::Present()
 {
-	m_SwapChain->Present(1, 0);
+	m_SwapChain->Present(m_VSync ? 1 : 0, 0);
+}
+
+bool Satoshi::D3D12Context::IsVSync()
+{
+	return m_VSync;
+}
+
+void Satoshi::D3D12Context::SetVSync(bool isVSync)
+{
+	m_VSync = isVSync;
 }
 
 void Satoshi::D3D12Context::OnResize(WindowResizeEvent& e)

@@ -70,9 +70,19 @@ void Satoshi::GL4Context::Present()
 {
 #ifdef ST_PLATFORM_WINDOWS
     if (SwapIntervalEXT)
-        SwapIntervalEXT(1);
+        SwapIntervalEXT(m_VSync ? 1 : 0);
     SwapBuffers(m_HDC);
 #endif
+}
+
+bool Satoshi::GL4Context::IsVSync()
+{
+    return m_VSync;
+}
+
+void Satoshi::GL4Context::SetVSync(bool isVSync)
+{
+    m_VSync = isVSync;
 }
 
 void Satoshi::GL4Context::OnResize(WindowResizeEvent& e)

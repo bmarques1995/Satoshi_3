@@ -24,10 +24,14 @@ namespace Satoshi
         virtual void EndFrame() override;
         virtual void Present() override;
 
+        virtual bool IsVSync() override;
+        virtual void SetVSync(bool isVSync) override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
 
     private:
         float m_ClearColor[4];
+        bool m_VSync;
 
 #ifdef ST_PLATFORM_WINDOWS
         HDC m_HDC;
