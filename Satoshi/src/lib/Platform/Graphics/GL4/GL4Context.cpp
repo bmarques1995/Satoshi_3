@@ -3,7 +3,8 @@
 #include "Satoshi/Core/Application.hpp"
 #include <regex>
 
-Satoshi::GL4Context::GL4Context()
+Satoshi::GL4Context::GL4Context(StWindowHandle window, uint32_t width, uint32_t height) :
+    m_WindowHandle(window), m_Width(width), m_Height(height), m_VSync(false)
 {
     //(255, 76, 48);
     m_ClearColor[0] = 1.0f;
@@ -12,7 +13,7 @@ Satoshi::GL4Context::GL4Context()
     m_ClearColor[3] = 1.0f;
 
 #ifdef ST_PLATFORM_WINDOWS
-    m_HDC = GetDC(std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow()));
+    m_HDC = GetDC(m_WindowHandle);
     assert(m_HDC != nullptr);
     // Set the pixel format for the device context:
     PIXELFORMATDESCRIPTOR pfd = { };
@@ -56,7 +57,7 @@ Satoshi::GL4Context::GL4Context()
 #endif
 
     glEnable(GL_DEPTH_TEST);
-    glViewport(0, 0, Application::GetInstance()->GetWidth(), Application::GetInstance()->GetHeight());
+    glViewport(0, 0, m_Width, m_Height);
     glDepthRange(0.0, 1.0f);
 }
 
@@ -64,7 +65,7 @@ Satoshi::GL4Context::~GL4Context()
 {
 #ifdef ST_PLATFORM_WINDOWS
     wglDeleteContext(m_HRC);
-    ReleaseDC(std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow()), m_HDC);
+    ReleaseDC(m_WindowHandle, m_HDC);
 #endif
 }
 

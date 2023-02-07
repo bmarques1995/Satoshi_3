@@ -4,6 +4,7 @@
 #include "Satoshi/Renderer/GraphicsContext.hpp"
 #include <vulkan/vulkan.hpp>
 #include <stpch.hpp>
+#include "Satoshi/Core/Core.hpp"
 
 #ifdef ST_PLATFORM_WINDOWS
 
@@ -30,7 +31,7 @@ namespace Satoshi
     class VKContext : public GraphicsContext
     {
     public:
-        VKContext(uint32_t maxFramesInFlight = 2);
+        VKContext(StWindowHandle window, uint32_t maxFramesInFlight = 2);
         ~VKContext();
 
         virtual void ClearTarget() override;
@@ -84,6 +85,7 @@ namespace Satoshi
         VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
         VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities, HWND window);
 
+        StWindowHandle m_WindowHandle;
         bool m_VSync;
 
         VkInstance m_Instance;

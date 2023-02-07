@@ -34,7 +34,7 @@ namespace Satoshi
     class D3D12Context : public GraphicsContext
     {
     public:
-        D3D12Context(uint32_t numBackBuffers = 3, uint32_t numFramesInFlight = 3);
+        D3D12Context(StWindowHandle window, uint32_t width, uint32_t height, uint32_t numBackBuffers = 3, uint32_t numFramesInFlight = 3);
         ~D3D12Context();
 
         virtual void ClearTarget() override;

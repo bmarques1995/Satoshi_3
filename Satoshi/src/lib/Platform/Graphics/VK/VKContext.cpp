@@ -2,8 +2,8 @@
 #include "Satoshi/Core/Application.hpp"
 #include "Satoshi/Core/Console.hpp"
 
-Satoshi::VKContext::VKContext(uint32_t maxFramesInFlight) :
-    m_MaxFramesInFlight(maxFramesInFlight)
+Satoshi::VKContext::VKContext(StWindowHandle window, uint32_t maxFramesInFlight) :
+    m_WindowHandle(window), m_MaxFramesInFlight(maxFramesInFlight), m_VSync(false)
 {
 
     //(195, 255, 104);
@@ -289,7 +289,7 @@ void Satoshi::VKContext::CreateSurface()
 #if ST_PLATFORM_WINDOWS //native win32 surface
     VkWin32SurfaceCreateInfoKHR createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-    createInfo.hwnd = std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow());
+    createInfo.hwnd = m_WindowHandle;
     createInfo.hinstance = GetModuleHandle(nullptr);
 
     vk_r = vkCreateWin32SurfaceKHR(m_Instance, &createInfo, nullptr, &m_Surface);
@@ -403,7 +403,7 @@ void Satoshi::VKContext::CreateSwapChain()
     //const VkColorSpaceKHR requestSurfaceColorSpace = VK_COLORSPACE_SRGB_NONLINEAR_KHR;
     VkSurfaceFormatKHR surfaceFormat = ChooseSwapSurfaceFormat(details.formats);
     VkPresentModeKHR presentMode = ChooseSwapPresentMode(details.presentModes);
-    VkExtent2D extent = ChooseSwapExtent(details.capabilities, std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow()));
+    VkExtent2D extent = ChooseSwapExtent(details.capabilities, m_WindowHandle);
     m_MinImageCount = details.capabilities.minImageCount;
     m_ImageCount =  m_MinImageCount + 1;
     if (details.capabilities.maxImageCount > 0 && m_ImageCount > details.capabilities.maxImageCount) {

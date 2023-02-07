@@ -4,7 +4,8 @@
 #include <cassert>
 #include "Satoshi/Core/Application.hpp"
 
-Satoshi::D3D11Context::D3D11Context()
+Satoshi::D3D11Context::D3D11Context(StWindowHandle window, uint32_t width, uint32_t height) :
+    m_VSync(false)
 {
     //(40, 67, 135);
     m_ClearColor[0] = 40.0f/255.0f;
@@ -13,9 +14,9 @@ Satoshi::D3D11Context::D3D11Context()
     m_ClearColor[3] = 1.0f;
 
     CreateAdapter();
-    CreateDeviceAndSwapchain();
+    CreateDeviceAndSwapchain(window);
     CreateRenderTarget();
-    CreateViewport(Application::GetInstance()->GetWidth(), Application::GetInstance()->GetHeight());
+    CreateViewport(width, height);
 }
 
 Satoshi::D3D11Context::~D3D11Context()
@@ -87,7 +88,7 @@ void Satoshi::D3D11Context::EndFrame()
 {
 }
 
-void Satoshi::D3D11Context::CreateDeviceAndSwapchain()
+void Satoshi::D3D11Context::CreateDeviceAndSwapchain(StWindowHandle window)
 {
     D3D_FEATURE_LEVEL fl = D3D_FEATURE_LEVEL_11_1;
     UINT flags = 0;
@@ -105,7 +106,7 @@ void Satoshi::D3D11Context::CreateDeviceAndSwapchain()
     sd.BufferDesc.RefreshRate.Denominator = 1;
     sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow());
+    sd.OutputWindow = window;
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;

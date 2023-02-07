@@ -20,7 +20,7 @@ public:
     void OnPaint(wxPaintEvent& e);
     void OnDestroy(wxWindowDestroyEvent& e);
 private:
-    std::unique_ptr<Satoshi::Application> m_Application;
+    std::unique_ptr<Satoshi::InEngineApplication> m_Application;
     bool m_Destroyed = false;
 };
 

@@ -12,7 +12,7 @@ namespace Satoshi
     class GL4Context : public GraphicsContext
     {
     public:
-        GL4Context();
+        GL4Context(StWindowHandle window, uint32_t width, uint32_t height);
         ~GL4Context();
 
         virtual void ClearTarget() override;
@@ -34,6 +34,10 @@ namespace Satoshi
     private:
         float m_ClearColor[4];
         bool m_VSync;
+
+        StWindowHandle m_WindowHandle;
+        uint32_t m_Width;
+        uint32_t m_Height;
 
 #ifdef ST_PLATFORM_WINDOWS
         HDC m_HDC;

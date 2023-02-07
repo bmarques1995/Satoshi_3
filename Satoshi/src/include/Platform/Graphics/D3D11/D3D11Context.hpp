@@ -21,7 +21,7 @@ namespace Satoshi
     class D3D11Context : public GraphicsContext
     {
     public:
-        D3D11Context();
+        D3D11Context(StWindowHandle window, uint32_t width, uint32_t height);
         ~D3D11Context();
 
         virtual void ClearTarget() override;
@@ -41,7 +41,7 @@ namespace Satoshi
         virtual void OnResize(WindowResizeEvent& e) override;
 
     private:
-        void CreateDeviceAndSwapchain();
+        void CreateDeviceAndSwapchain(StWindowHandle window);
         void CreateAdapter();
         void CreateRenderTarget();
         void CreateViewport(uint32_t width, uint32_t height);

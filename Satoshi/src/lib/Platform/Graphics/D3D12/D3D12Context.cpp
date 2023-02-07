@@ -4,8 +4,8 @@
 #include "Satoshi/Core/Application.hpp"
 #include "Satoshi/Core/Console.hpp"
 
-Satoshi::D3D12Context::D3D12Context(uint32_t numBackBuffers, uint32_t numFramesInFlight) :
-	m_BackBuffersAmount(numBackBuffers), m_FramesInFlightAmount(numFramesInFlight)
+Satoshi::D3D12Context::D3D12Context(StWindowHandle window, uint32_t width, uint32_t height, uint32_t numBackBuffers, uint32_t numFramesInFlight) :
+	m_VSync(false), m_BackBuffersAmount(numBackBuffers), m_FramesInFlightAmount(numFramesInFlight)
 {
 	m_ClearColor[0] = 232.0f/255.0f;
 	m_ClearColor[1] = 177.0f / 255.0f;
@@ -20,9 +20,9 @@ Satoshi::D3D12Context::D3D12Context(uint32_t numBackBuffers, uint32_t numFramesI
 	CreateFrameContext();
 	CreateCommandList();
 	CreateFence();
-	CreateSwapChain(std::any_cast<HWND>(Application::GetInstance()->GetNativeWindow()));
+	CreateSwapChain(window);
 	CreateRenderTargetView();
-	CreateViewport(Application::GetInstance()->GetWidth(), Application::GetInstance()->GetHeight());
+	CreateViewport(width, height);
 }
 
 Satoshi::D3D12Context::~D3D12Context()

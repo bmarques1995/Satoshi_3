@@ -7,7 +7,7 @@ GraphicsWindow::GraphicsWindow(wxFrame* parent) :
 	auto size = this->GetClientSize();
 	Connect(wxEVT_PAINT, wxPaintEventHandler(GraphicsWindow::OnPaint));
 	Connect(wxEVT_DESTROY, wxWindowDestroyEventHandler(GraphicsWindow::OnDestroy));
-	m_Application.reset(new Satoshi::Application((HWND)GetHandle(), size.x, size.y));
+	m_Application.reset(new Satoshi::InEngineApplication((HWND)GetHandle(), size.x, size.y));
 }
 
 GraphicsWindow::~GraphicsWindow()

@@ -27,7 +27,7 @@ namespace Satoshi
 
         virtual void OnResize(WindowResizeEvent&) = 0;
 
-        static GraphicsContext* Create(GRAPHICS_API api);
+        static GraphicsContext* Create(StWindowHandle window, uint32_t width, uint32_t height, GRAPHICS_API api);
     };
 }
 
