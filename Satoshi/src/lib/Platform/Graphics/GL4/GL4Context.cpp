@@ -5,9 +5,10 @@
 
 Satoshi::GL4Context::GL4Context()
 {
+    //(255, 76, 48);
     m_ClearColor[0] = 1.0f;
-    m_ClearColor[1] = .0f;
-    m_ClearColor[2] = .3f;
+    m_ClearColor[1] = 76.0f/255.0f;
+    m_ClearColor[2] = 48.0f/255.0f;
     m_ClearColor[3] = 1.0f;
 
 #ifdef ST_PLATFORM_WINDOWS

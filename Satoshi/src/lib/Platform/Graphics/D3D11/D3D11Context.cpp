@@ -6,9 +6,10 @@
 
 Satoshi::D3D11Context::D3D11Context()
 {
-    m_ClearColor[0] = .6f;
-    m_ClearColor[1] = 1.0f;
-    m_ClearColor[2] = .3f;
+    //(40, 67, 135);
+    m_ClearColor[0] = 40.0f/255.0f;
+    m_ClearColor[1] = 67.0f/255.0f;
+    m_ClearColor[2] = 135.0f/255.0f;
     m_ClearColor[3] = 1.0f;
 
     CreateAdapter();

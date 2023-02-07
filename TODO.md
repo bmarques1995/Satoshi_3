@@ -10,7 +10,7 @@
 ## In Progress
 
 - Application
-  - [ ] Add JSON initializer to control Graphics API
+  - [X] Add JSON initializer to control Graphics API
   - [ ] Add window polling
   - [ ] Add independent Window to build result
 

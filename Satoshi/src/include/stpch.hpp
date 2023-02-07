@@ -8,5 +8,6 @@
 #include <memory>
 #include <optional>
 #include <set>
+#include <fstream>
 
 #endif //STPCH_HPP

@@ -7,8 +7,8 @@
 Satoshi::D3D12Context::D3D12Context(uint32_t numBackBuffers, uint32_t numFramesInFlight) :
 	m_BackBuffersAmount(numBackBuffers), m_FramesInFlightAmount(numFramesInFlight)
 {
-	m_ClearColor[0] = 1.0f;
-	m_ClearColor[1] = 140.0f / 255.0f;
+	m_ClearColor[0] = 232.0f/255.0f;
+	m_ClearColor[1] = 177.0f / 255.0f;
 	m_ClearColor[2] = .0f;
 	m_ClearColor[3] = 1.0f;
 

@@ -40,6 +40,7 @@ namespace Satoshi
         static Application* s_Instance;
 
         std::unique_ptr<GraphicsContext> m_Context;
+        GRAPHICS_API m_API;
     };
 }
 

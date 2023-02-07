@@ -50,7 +50,6 @@ target_precompile_headers(Satoshi PRIVATE "./Satoshi/src/include/stpch.hpp")
 
 add_executable(Sandbox ${WINDOW_ARG} ${SANDBOX_HEADERS} ${SANDBOX_SOURCES})
 target_include_directories(Sandbox PRIVATE "./Satoshi/src/include/" "./Sandbox/src/include/" "./install/include" "./install/include/msvc/")
-#target_compile_definitions(Sandbox PRIVATE _UNICODE)
 target_link_directories(Sandbox PRIVATE "./install/lib/vc_x64_lib" "./install/lib")
 target_link_libraries(Sandbox PRIVATE Satoshi ${COMMON_LIBS})
 target_precompile_headers(Sandbox PRIVATE "./Sandbox/src/include/sdbpch.hpp")

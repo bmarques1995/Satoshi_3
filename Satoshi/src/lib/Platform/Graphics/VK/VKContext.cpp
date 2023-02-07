@@ -5,9 +5,12 @@
 Satoshi::VKContext::VKContext(uint32_t maxFramesInFlight) :
     m_MaxFramesInFlight(maxFramesInFlight)
 {
-    m_ClearColor[0] = .6f;
-    m_ClearColor[1] = .9f;
-    m_ClearColor[2] = .1f;
+
+    //(195, 255, 104);
+
+    m_ClearColor[0] = 195.0f/255.0f;
+    m_ClearColor[1] = 1.0f;
+    m_ClearColor[2] = 104.0f/255.0f;
     m_ClearColor[3] = 1.0f;
 
     CreateInstance();
