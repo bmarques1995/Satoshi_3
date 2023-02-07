@@ -1,6 +1,7 @@
 ﻿#include "Platform/Graphics/GL4/GL4Context.hpp"
 #include <cassert>
 #include "Satoshi/Core/Application.hpp"
+#include <regex>
 
 Satoshi::GL4Context::GL4Context()
 {
@@ -86,11 +87,14 @@ void Satoshi::GL4Context::SetVSync(bool isVSync)
 }
 
 void Satoshi::GL4Context::GetGPUName(std::string* output)
-{
-    std::stringstream ss;
-  
-    ss << (const char*) glGetString(GL_RENDERER);
-    *output = ss.str();
+{  
+    std::regex  const expression("[/]");
+    std::string const text((const char*)glGetString(GL_RENDERER));
+    std::smatch match;
+
+    std::regex_search(text, match, expression);
+
+    *output = match.prefix();
 }
 
 void Satoshi::GL4Context::OnResize(WindowResizeEvent& e)
