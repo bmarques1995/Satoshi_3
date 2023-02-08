@@ -22,6 +22,8 @@ namespace Satoshi
         uint32_t GetWidth();
         uint32_t GetHeight();
 
+        void Resize(WindowResizeEvent& e);
+
         void Update();
     private:
         StWindowHandle m_WindowHandle;

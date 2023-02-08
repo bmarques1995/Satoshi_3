@@ -6,6 +6,7 @@ GraphicsWindow::GraphicsWindow(wxFrame* parent) :
 	Show(true);
 	auto size = this->GetClientSize();
 	Connect(wxEVT_PAINT, wxPaintEventHandler(GraphicsWindow::OnPaint));
+	Connect(wxEVT_SIZE, wxSizeEventHandler(GraphicsWindow::OnResize));
 	Connect(wxEVT_DESTROY, wxWindowDestroyEventHandler(GraphicsWindow::OnDestroy));
 	m_Application.reset(new Satoshi::InEngineApplication((HWND)GetHandle(), size.x, size.y));
 }
@@ -24,6 +25,13 @@ void GraphicsWindow::Notify()
 
 void GraphicsWindow::OnPaint(wxPaintEvent& e)
 {
+	e.Skip();
+}
+
+void GraphicsWindow::OnResize(wxSizeEvent& e)
+{
+	Satoshi::WindowResizeEvent st_e(e.GetSize().GetWidth(), e.GetSize().GetHeight());
+	m_Application->Resize(st_e);
 	e.Skip();
 }
 

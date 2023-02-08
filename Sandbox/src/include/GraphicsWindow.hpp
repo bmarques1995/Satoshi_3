@@ -18,6 +18,7 @@ public:
     void Notify();
 
     void OnPaint(wxPaintEvent& e);
+    void OnResize(wxSizeEvent& e);
     void OnDestroy(wxWindowDestroyEvent& e);
 private:
     std::unique_ptr<Satoshi::InEngineApplication> m_Application;

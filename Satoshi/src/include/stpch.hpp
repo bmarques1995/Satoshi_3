@@ -9,5 +9,6 @@
 #include <optional>
 #include <set>
 #include <fstream>
+#include <cassert>
 
 #endif //STPCH_HPP

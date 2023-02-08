@@ -40,12 +40,19 @@ Satoshi::InEngineApplication* Satoshi::InEngineApplication::GetInstance()
 
 uint32_t Satoshi::InEngineApplication::GetWidth()
 {
-	return 0;
+	return m_Width;
 }
 
 uint32_t Satoshi::InEngineApplication::GetHeight()
 {
-	return 0;
+	return m_Height;
+}
+
+void Satoshi::InEngineApplication::Resize(WindowResizeEvent& e)
+{
+	m_Width = e.GetWidth();
+	m_Height = e.GetHeight();
+	m_Context->OnResize(e);
 }
 
 void Satoshi::InEngineApplication::Update()
