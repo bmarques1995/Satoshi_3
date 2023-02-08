@@ -35,6 +35,11 @@ namespace Satoshi
         float m_ClearColor[4];
         bool m_VSync;
 
+        void CreateDevice();
+        void CreateDescriptor();
+        void CreateContext();
+        void CreateViewport();
+
         StWindowHandle m_WindowHandle;
         uint32_t m_Width;
         uint32_t m_Height;
