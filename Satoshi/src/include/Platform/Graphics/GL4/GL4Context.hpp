@@ -2,6 +2,7 @@
 #define GL4_CONTEXT_HPP
 
 #include "Satoshi/Renderer/GraphicsContext.hpp"
+#include "GL4ShaderManager.hpp"
 
 #ifdef ST_PLATFORM_WINDOWS
 #include <glad/wgl.h>

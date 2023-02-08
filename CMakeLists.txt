@@ -9,10 +9,18 @@ file(GLOB_RECURSE SATOSHI_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "Satoshi/
 file(GLOB_RECURSE SANDBOX_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "Sandbox/src/include/*.hpp")
 file(GLOB_RECURSE SANDBOX_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "Sandbox/src/lib/*.cpp")
 
+add_custom_target(copy_resources ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/assets
+    ${PROJECT_BINARY_DIR}/assets
+    COMMENT "Copying shaders to binary directory"
+)
+
 set(SATOSHI_LIBS 
     spdlogd
     glad
     vulkan-1
+    shaderc_combined
 )
 
 set(COMMON_LIBS
@@ -53,3 +61,4 @@ target_include_directories(Sandbox PRIVATE "./Satoshi/src/include/" "./Sandbox/s
 target_link_directories(Sandbox PRIVATE "./install/lib/vc_x64_lib" "./install/lib")
 target_link_libraries(Sandbox PRIVATE Satoshi ${COMMON_LIBS})
 target_precompile_headers(Sandbox PRIVATE "./Sandbox/src/include/sdbpch.hpp")
+add_dependencies(Sandbox copy_resources)

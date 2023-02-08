@@ -10,18 +10,29 @@ Satoshi::Application* Satoshi::Application::s_Instance = nullptr;
 Satoshi::Application::Application()
 {
 	s_Instance = this;
+	Console::Init();
+	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
+
 	ApplicationStarter::BuildStarter();
 	json startupJson = ApplicationStarter::GetStartupJson();
 	auto test = startupJson["GraphicsAPI"].get<std::string>();
 	m_API = RendererAPI::MatchAPIByName(test);
-	Console::Init();
+	
 	m_Window.reset(Window::Create());
 	m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 	m_Context.reset(GraphicsContext::Create(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()), m_Window->GetWidth(), m_Window->GetHeight(), m_API));
 	m_Context->SetVSync(true);
 	std::string gpuName;
 	m_Context->GetGPUName(&gpuName);
-	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
+	
+	m_ShaderManager.reset(ShaderManager::Create(m_API));
+	Satoshi::ShaderGroup shaderGroup("Triangle", m_API,
+		{
+			{Satoshi::SHADER_KIND::SHADER_KIND_VERTEX},
+			{Satoshi::SHADER_KIND::SHADER_KIND_PIXEL}
+		}
+	);
+	m_ShaderManager->CompileShaderFamily(shaderGroup);
 }
 
 Satoshi::Application::~Application()

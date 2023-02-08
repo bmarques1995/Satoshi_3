@@ -5,6 +5,7 @@
 #include <vulkan/vulkan.hpp>
 #include <stpch.hpp>
 #include "Satoshi/Core/Core.hpp"
+#include "VKShaderManager.hpp"
 
 #ifdef ST_PLATFORM_WINDOWS
 

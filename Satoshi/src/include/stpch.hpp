@@ -10,5 +10,6 @@
 #include <set>
 #include <fstream>
 #include <cassert>
+#include <initializer_list>
 
 #endif //STPCH_HPP

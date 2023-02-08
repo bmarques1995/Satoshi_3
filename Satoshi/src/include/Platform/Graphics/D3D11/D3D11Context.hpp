@@ -4,6 +4,7 @@
 #define D3D11_CONTEXT_HPP
 
 #include "Satoshi/Renderer/GraphicsContext.hpp"
+#include "D3D11ShaderManager.hpp"
 
 #include <d3d11_4.h>
 

@@ -6,6 +6,7 @@
 
 #include "Satoshi/Renderer/RendererAPI.hpp"
 #include "Satoshi/Renderer/GraphicsContext.hpp"
+#include "Satoshi/Renderer/ShaderManager.hpp"
 
 namespace Satoshi
 {
@@ -33,6 +34,7 @@ namespace Satoshi
         static InEngineApplication* s_Instance;
 
         std::unique_ptr<GraphicsContext> m_Context;
+        std::unique_ptr<ShaderManager> m_ShaderManager;
         GRAPHICS_API m_API;
     };
 }

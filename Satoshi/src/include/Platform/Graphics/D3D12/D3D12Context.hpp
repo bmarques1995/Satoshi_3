@@ -4,6 +4,7 @@
 #define D3D12_CONTEXT_HPP
 
 #include "Satoshi/Renderer/GraphicsContext.hpp"
+#include "D3D12ShaderManager.hpp"
 
 #include <d3d12.h>
 #include <dxgi1_6.h>

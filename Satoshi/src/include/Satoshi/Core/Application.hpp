@@ -11,6 +11,7 @@
 
 #include "Satoshi/Renderer/GraphicsContext.hpp"
 #include "Satoshi/Renderer/RendererAPI.hpp"
+#include "Satoshi/Renderer/ShaderManager.hpp"
 
 namespace Satoshi
 {
@@ -35,7 +36,7 @@ namespace Satoshi
 
         std::unique_ptr<Window> m_Window;
         std::unique_ptr<GraphicsContext> m_Context;
-        
+        std::unique_ptr<ShaderManager> m_ShaderManager;
 
         GRAPHICS_API m_API;
     };
