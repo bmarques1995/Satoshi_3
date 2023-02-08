@@ -11,7 +11,7 @@
 
 - Application
   - [X] Add JSON initializer to control Graphics API
-  - [ ] Add window polling
+  - [X] Add window polling
   - [ ] Add independent Window to build result
 
 ## Done ✓
