@@ -8,7 +8,6 @@
 #include <stpch.hpp>
 #include <windows.h>
 
-
 namespace Satoshi
 {
     struct WindowData
@@ -17,6 +16,7 @@ namespace Satoshi
         bool VSync;
         uint32_t Width, Height;
         EventCallbackFn EventCallback;
+        std::unordered_map<UINT, std::function<void(HWND,WPARAM,LPARAM,WindowData*)>> CallbackResolver;
     };
     class Win32Window : public Window
     {
@@ -40,7 +40,9 @@ namespace Satoshi
 
         void CreateWindowClass(HINSTANCE* instance);
         static void AdjustDimensions(LPRECT originalDimensions, DWORD flags);
+        void RegisterCallbacks();
 
+        
 
         HWND m_WindowHandle;
         WNDCLASSEXW m_WindowClass = { 0 };

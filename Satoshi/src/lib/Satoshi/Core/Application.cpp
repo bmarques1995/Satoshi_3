@@ -11,7 +11,7 @@ Satoshi::Application::Application()
 {
 	s_Instance = this;
 	Console::Init();
-	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
+	
 
 	ApplicationStarter::BuildStarter();
 	json startupJson = ApplicationStarter::GetStartupJson();
@@ -20,6 +20,8 @@ Satoshi::Application::Application()
 	
 	m_Window.reset(Window::Create());
 	m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
+	
 	m_Context.reset(GraphicsContext::Create(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()), m_Window->GetWidth(), m_Window->GetHeight(), m_API));
 	m_Context->SetVSync(true);
 	std::string gpuName;

@@ -43,6 +43,7 @@ Satoshi::Win32Window::Win32Window(const WindowProps& props)
     auto test = GetLastError();
     assert(GetLastError() == 0);
 
+    RegisterCallbacks();
     SetWindowLongPtrW(m_WindowHandle, 0, (LONG_PTR)&m_WindowData);
 
     ShowWindow(m_WindowHandle, cmdShow);
@@ -111,116 +112,17 @@ void Satoshi::Win32Window::CreateWindowClass(HINSTANCE* instance)
 
     m_WindowClass.lpfnWndProc = [](HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
     {
-        //window resize
-        //window close
 
         WindowData* m_Data = (WindowData*)GetWindowLongPtr(hWnd, 0);
 
-        if (msg == WM_NCCREATE)
+        if (msg == WM_NCCREATE || m_Data == nullptr)
+        {
             return DefWindowProcW(hWnd, msg, wParam, lParam);
+        }
 
-        switch (msg)
+        if (m_Data->CallbackResolver.find(msg) != m_Data->CallbackResolver.end())
         {
-        case WM_SIZING:
-        {
-            RECT clientArea;
-            GetClientRect(hWnd, &clientArea);
-            WindowResizeEvent e((unsigned)(clientArea.right - clientArea.left), (unsigned)(clientArea.bottom - clientArea.top));
-            m_Data->Width = e.GetWidth();
-            m_Data->Height = e.GetHeight();
-            m_Data->EventCallback(e);
-            break;
-        }
-        case WM_CLOSE:
-        case WM_QUIT:
-        {
-            WindowCloseEvent e;
-            m_Data->EventCallback(e);
-            break;
-        }
-        case WM_KEYDOWN:
-        {
-            uint16_t repeated = (bool)(HIWORD(lParam) & KF_REPEAT);
-            KeyPressedEvent event(static_cast<uint32_t>(wParam), repeated);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_KEYUP:
-        {
-            KeyReleasedEvent event(static_cast<uint32_t>(wParam));
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_CHAR:
-        {
-            KeyTypedEvent event(static_cast<uint32_t>(wParam));
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_LBUTTONDOWN:
-        {
-            MouseButtonPressedEvent event(0);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_MBUTTONDOWN:
-        {
-            MouseButtonPressedEvent event(2);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_RBUTTONDOWN:
-        {
-            MouseButtonPressedEvent event(1);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_XBUTTONDOWN:
-        {
-            MouseButtonPressedEvent event((unsigned)wParam);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_LBUTTONUP:
-        {
-            MouseButtonReleasedEvent event(0);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_MBUTTONUP:
-        {
-            MouseButtonReleasedEvent event(2);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_RBUTTONUP:
-        {
-            MouseButtonReleasedEvent event(1);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_XBUTTONUP:
-        {
-            MouseButtonReleasedEvent event((unsigned)wParam);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_MOUSEHWHEEL:
-        {
-            short delta = GET_WHEEL_DELTA_WPARAM(wParam);
-            MouseScrolledEvent event((float)(delta / 120), 0);
-            m_Data->EventCallback(event);
-            break;
-        }
-        case WM_MOUSEWHEEL:
-        {
-            short delta = GET_WHEEL_DELTA_WPARAM(wParam);
-            MouseScrolledEvent event(0, (float)(delta / 120));
-            m_Data->EventCallback(event);
-            break;
-        }
-        default:
-            break;
+            m_Data->CallbackResolver[msg](hWnd, wParam, lParam, m_Data);
         }
 
         return DefWindowProcW(hWnd, msg, wParam, lParam);
@@ -230,6 +132,121 @@ void Satoshi::Win32Window::CreateWindowClass(HINSTANCE* instance)
 void Satoshi::Win32Window::AdjustDimensions(LPRECT originalDimensions, DWORD flags)
 {
     AdjustWindowRectEx(originalDimensions, flags, 0, 0);
+}
+
+void Satoshi::Win32Window::RegisterCallbacks()
+{
+    m_WindowData.CallbackResolver[WM_SIZING] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        RECT clientArea;
+        GetClientRect(hWnd, &clientArea);
+        WindowResizeEvent e((unsigned)(clientArea.right - clientArea.left), (unsigned)(clientArea.bottom - clientArea.top));
+        m_Data->Width = e.GetWidth();
+        m_Data->Height = e.GetHeight();
+        m_Data->EventCallback(e);
+    };
+
+    m_WindowData.CallbackResolver[WM_QUIT] = m_WindowData.CallbackResolver[WM_CLOSE] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        WindowCloseEvent e;
+        m_Data->EventCallback(e);
+    };
+
+    m_WindowData.CallbackResolver[WM_KEYDOWN] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        uint16_t repeated = (bool)(HIWORD(lParam) & KF_REPEAT);
+        KeyPressedEvent event(static_cast<uint32_t>(wParam), repeated);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_KEYUP] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        KeyReleasedEvent event(static_cast<uint32_t>(wParam));
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_CHAR] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        KeyTypedEvent event(static_cast<uint32_t>(wParam));
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_LBUTTONDOWN] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonPressedEvent event(0);
+        m_Data->EventCallback(event);
+    };
+    
+    m_WindowData.CallbackResolver[WM_MBUTTONDOWN] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonPressedEvent event(2);
+        m_Data->EventCallback(event);
+    };
+    
+    m_WindowData.CallbackResolver[WM_RBUTTONDOWN] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonPressedEvent event(1);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_XBUTTONDOWN] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonPressedEvent event((unsigned)wParam);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_LBUTTONUP] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonReleasedEvent event(0);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_MBUTTONUP] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonReleasedEvent event(2);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_RBUTTONUP] =
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonReleasedEvent event(1);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_XBUTTONUP] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        MouseButtonReleasedEvent event((unsigned)wParam);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_MOUSEHWHEEL] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        short delta = GET_WHEEL_DELTA_WPARAM(wParam);
+        MouseScrolledEvent event((float)(delta / 120), 0);
+        m_Data->EventCallback(event);
+    };
+
+    m_WindowData.CallbackResolver[WM_MOUSEWHEEL] = 
+        [](HWND hWnd, WPARAM wParam, LPARAM lParam, WindowData* m_Data) -> void
+    {
+        short delta = GET_WHEEL_DELTA_WPARAM(wParam);
+        MouseScrolledEvent event(0, (float)(delta / 120));
+        m_Data->EventCallback(event);
+    };
 }
 
 #endif // ST_PLATFORM_WINDOWS

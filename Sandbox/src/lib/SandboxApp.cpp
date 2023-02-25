@@ -7,15 +7,16 @@ int WINAPI wWinMain(HINSTANCE hInstance,
     LPWSTR lpCmdLine,
     int nCmdShow)                             
 {
-#if 0 //Sample code for detached game
+
     Satoshi::Application* app = new Satoshi::Application();
     app->Run();
     delete app;
-#endif
 
+#if 0 //Sample code for detached game
     std::wstring cmdLine = lpCmdLine;
     std::string s_cmdLine = std::string(cmdLine.begin(), cmdLine.end());
     return wxEntry(hInstance, hPrevInstance, (char *)s_cmdLine.c_str(), nCmdShow);
+#endif
 }
 
 //#define wxIMPLEMENT_APP_NO_MAIN(appname)                                    
