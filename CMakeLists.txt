@@ -21,11 +21,11 @@ set(SATOSHI_LIBS
     glad
     vulkan-1
     shaderc_combined
+    jsoncpp_static
 )
 
 set(COMMON_LIBS
-    wxbase33ud
-    wxmsw33ud_core
+
 )
 
 set(WINDOW_ARG)

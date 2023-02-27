@@ -13,9 +13,9 @@
 [submodule "Satoshi/vendor/eigen3"]
 	path = Satoshi/vendor/eigen3
 	url = https://gitlab.com/libeigen/eigen.git
-[submodule "Satoshi/vendor/nlohmann_json"]
-	path = Satoshi/vendor/nlohmann_json
-	url = https://github.com/nlohmann/json.git
 [submodule "Satoshi/vendor/shaderc_wrapper"]
 	path = Satoshi/vendor/shaderc_wrapper
 	url = https://github.com/bmarques1995/shaderc_wrapper.git
+[submodule "Satoshi/vendor/jsoncpp"]
+	path = Satoshi/vendor/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git

@@ -1,19 +1,17 @@
 #ifndef APPLICATION_STARTER_HPP
 #define APPLICATION_STARTER_HPP
 
-#include <nlohmann/json.hpp>
-
-using nlohmann::json;
+#include <json/json.h>
 
 namespace Satoshi
 {
     class ApplicationStarter
     {
 	public:
-		static const json& GetStartupJson();
+		static const Json::Value& GetStartupJson();
 		static void BuildStarter();
 	private:
-		static json s_JSONProperties;
+		static Json::Value s_JSONProperties;
 
 		static bool PropertiesPassed();
 		static void BuildStandardStarter();

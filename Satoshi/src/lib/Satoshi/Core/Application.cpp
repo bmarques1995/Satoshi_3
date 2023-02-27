@@ -14,9 +14,10 @@ Satoshi::Application::Application()
 	
 
 	ApplicationStarter::BuildStarter();
-	json startupJson = ApplicationStarter::GetStartupJson();
-	auto test = startupJson["GraphicsAPI"].get<std::string>();
-	m_API = RendererAPI::MatchAPIByName(test);
+	Json::Value startupJson = ApplicationStarter::GetStartupJson();
+	auto graphicsAPI = startupJson["GraphicsAPI"].as<std::string>();
+	std::transform(graphicsAPI.begin(), graphicsAPI.end(), graphicsAPI.begin(), ::toupper);
+	m_API = RendererAPI::MatchAPIByName(graphicsAPI);
 	
 	m_Window.reset(Window::Create());
 	m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
