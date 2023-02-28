@@ -12,7 +12,8 @@ namespace Satoshi
 {
     struct WindowData
     {
-        std::wstring Title;
+        std::string Title;
+        std::wstring WTitle;
         bool VSync;
         uint32_t Width, Height;
         EventCallbackFn EventCallback;
@@ -33,6 +34,9 @@ namespace Satoshi
         virtual void SetCloseState(bool value) override;
 
         virtual void SetEventCallback(const EventCallbackFn& callback) override;
+
+        virtual std::string GetTitle() override;
+        virtual void SetTitle(const std::string& title) override;
 
         virtual std::any GetNativeWindow() const override;
 

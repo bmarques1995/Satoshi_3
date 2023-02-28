@@ -12,23 +12,13 @@ Satoshi::Application::Application()
 	s_Instance = this;
 	Console::Init();
 	
-
-	ApplicationStarter::BuildStarter();
-	Json::Value startupJson = ApplicationStarter::GetStartupJson();
-	auto graphicsAPI = startupJson["GraphicsAPI"].as<std::string>();
-	std::transform(graphicsAPI.begin(), graphicsAPI.end(), graphicsAPI.begin(), ::toupper);
-	m_API = RendererAPI::MatchAPIByName(graphicsAPI);
-	
-	m_Window.reset(Window::Create());
-	m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
-	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
-	
-	m_Context.reset(GraphicsContext::Create(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()), m_Window->GetWidth(), m_Window->GetHeight(), m_API));
-	m_Context->SetVSync(true);
-	std::string gpuName;
-	m_Context->GetGPUName(&gpuName);
+	GetGraphicsBackend();
+	CreateWindowController();
+	CreateContext();
+	SetAPIAndGraphicsCardToTitle();
 	
 	m_ShaderManager.reset(ShaderManager::Create(m_API));
+	
 	Satoshi::ShaderGroup shaderGroup("Triangle", m_API,
 		{
 			{Satoshi::SHADER_KIND::SHADER_KIND_VERTEX},
@@ -57,8 +47,8 @@ void Satoshi::Application::Run()
 		m_Context->DispatchCommands();
 		m_Context->Present();
 		m_Context->EndFrame();
-		if (Satoshi::Input::IsKeyPressed(ST_KEY_A))
-			Satoshi::Console::Log("Key A was pressed");
+		for (Layer* layer : m_LayerStack)
+			layer->OnUpdate();
 	}
 }
 
@@ -68,6 +58,16 @@ void Satoshi::Application::OnEvent(Event& e)
 	dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
 	dispatcher.Dispatch<WindowResizeEvent>(std::bind(&Application::OnWindowResize, this, std::placeholders::_1));
 	Console::Log(e.ToString());
+}
+
+void Satoshi::Application::PushLayer(Layer* layer)
+{
+	m_LayerStack.PushLayer(layer);
+}
+
+void Satoshi::Application::PushOverlay(Layer* overlay)
+{
+	m_LayerStack.PushOverlay(overlay);
 }
 
 bool Satoshi::Application::OnWindowClose(WindowCloseEvent& e)
@@ -80,5 +80,44 @@ bool Satoshi::Application::OnWindowResize(WindowResizeEvent& e)
 {
 	m_Context->OnResize(e);
 	return false;
+}
+
+void Satoshi::Application::GetGraphicsBackend()
+{
+	ApplicationStarter::BuildStarter();
+	Json::Value startupJson = ApplicationStarter::GetStartupJson();
+	auto graphicsAPI = startupJson["GraphicsAPI"].as<std::string>();
+	std::transform(graphicsAPI.begin(), graphicsAPI.end(), graphicsAPI.begin(), ::toupper);
+	m_API = RendererAPI::MatchAPIByName(graphicsAPI);
+}
+
+void Satoshi::Application::CreateWindowController()
+{
+	m_Window.reset(Window::Create());
+	m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+	Satoshi::Input::Start(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()));
+}
+
+void Satoshi::Application::CreateContext()
+{
+	m_Context.reset(GraphicsContext::Create(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()), m_Window->GetWidth(), m_Window->GetHeight(), m_API));
+	m_Context->SetVSync(true);
+	
+}
+
+void Satoshi::Application::SetAPIAndGraphicsCardToTitle()
+{
+	std::stringstream windowName;
+
+	Json::Value startupJson = ApplicationStarter::GetStartupJson();
+	auto graphicsAPI = startupJson["GraphicsAPI"].as<std::string>();
+	std::transform(graphicsAPI.begin(), graphicsAPI.end(), graphicsAPI.begin(), ::toupper);
+
+	std::string gpuName;
+	m_Context->GetGPUName(&gpuName);
+	Console::Log(gpuName);
+
+	windowName << m_Window->GetTitle() << " [" << graphicsAPI << "] " << gpuName;
+	m_Window->SetTitle(windowName.str());
 }
 

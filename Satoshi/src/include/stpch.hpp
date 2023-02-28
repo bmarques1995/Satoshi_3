@@ -11,5 +11,10 @@
 #include <fstream>
 #include <cassert>
 #include <initializer_list>
+#include <cstdint>
+#include <ctgmath>
+#include <list>
+#include <queue>
+#include <stack>
 
 #endif //STPCH_HPP

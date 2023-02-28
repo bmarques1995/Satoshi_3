@@ -42,6 +42,9 @@ namespace Satoshi
         virtual void SetCloseState(bool value) = 0;
 
         virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+
+        virtual std::string GetTitle() = 0;
+        virtual void SetTitle(const std::string& Title) = 0;
         
         static Window* Create(const WindowProps& props = WindowProps());
     private:

@@ -2,6 +2,7 @@
 #define APPLICATION_HPP
 
 #include "Core.hpp"
+#include "LayerStack.hpp"
 #include "Satoshi/Window/Window.hpp"
 #include <stpch.hpp>
 
@@ -29,14 +30,23 @@ namespace Satoshi
         GraphicsContext* GetContext() { return m_Context.get(); }
         inline static Application* GetInstance() { return s_Instance; }
 
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* overlay);
+
     private:
         static Application* s_Instance;
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
 
+        void GetGraphicsBackend();
+        void CreateWindowController();
+        void CreateContext();
+        void SetAPIAndGraphicsCardToTitle();
+
         std::unique_ptr<Window> m_Window;
         std::unique_ptr<GraphicsContext> m_Context;
         std::unique_ptr<ShaderManager> m_ShaderManager;
+        LayerStack m_LayerStack;
 
         GRAPHICS_API m_API;
     };

@@ -7,7 +7,8 @@
 
 Satoshi::Win32Window::Win32Window(const WindowProps& props)
 {
-    m_WindowData.Title = std::wstring(props.Title.begin(), props.Title.end());
+    m_WindowData.Title = props.Title;
+    m_WindowData.WTitle = std::wstring(props.Title.begin(), props.Title.end());
     m_WindowData.Width = props.Width;
     m_WindowData.Height = props.Height;
     m_ShouldClose = false;
@@ -23,12 +24,13 @@ Satoshi::Win32Window::Win32Window(const WindowProps& props)
     DWORD windowedFlags = WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_SYSMENU | WS_MINIMIZEBOX | WS_CAPTION | WS_MAXIMIZEBOX | WS_THICKFRAME;
 
     AdjustDimensions(&windowDimensions, windowedFlags);
+    auto wTitle = std::wstring(m_WindowData.Title.begin(), m_WindowData.Title.end());
 
     m_WindowHandle = CreateWindowExW
     (
         0,
-        m_WindowData.Title.c_str(),
-        m_WindowData.Title.c_str(),
+        wTitle.c_str(),
+        wTitle.c_str(),
         windowedFlags,
         100,
         100,
@@ -91,6 +93,18 @@ void Satoshi::Win32Window::SetEventCallback(const EventCallbackFn& callback)
     m_WindowData.EventCallback = callback;
 }
 
+std::string Satoshi::Win32Window::GetTitle()
+{
+    return m_WindowData.Title;
+}
+
+void Satoshi::Win32Window::SetTitle(const std::string& title)
+{
+    m_WindowData.Title = title;
+    auto wTitle = std::wstring(m_WindowData.Title.begin(), m_WindowData.Title.end());
+    SetWindowTextW(m_WindowHandle, wTitle.c_str());
+}
+
 std::any Satoshi::Win32Window::GetNativeWindow() const
 {
     return m_WindowHandle;
@@ -107,7 +121,7 @@ void Satoshi::Win32Window::CreateWindowClass(HINSTANCE* instance)
     m_WindowClass.hIcon = nullptr;
     m_WindowClass.hCursor = LoadCursor(m_WindowClass.hInstance, IDC_ARROW);
     m_WindowClass.hbrBackground = CreateSolidBrush(RGB(0, 0, 0));
-    m_WindowClass.lpszClassName = m_WindowData.Title.c_str();
+    m_WindowClass.lpszClassName = m_WindowData.WTitle.c_str();
     m_WindowClass.lpszMenuName = nullptr;
 
     m_WindowClass.lpfnWndProc = [](HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> LRESULT
