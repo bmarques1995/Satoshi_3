@@ -192,6 +192,11 @@ void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
     RecreateSwapchain();
 }
 
+std::any Satoshi::VKContext::GetContextRunners()
+{
+    return nullptr;
+}
+
 void Satoshi::VKContext::CreateInstance()
 {
     VkResult vk_r;

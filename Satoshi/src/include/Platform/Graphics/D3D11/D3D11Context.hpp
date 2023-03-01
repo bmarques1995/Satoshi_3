@@ -14,7 +14,7 @@ using Microsoft::WRL::ComPtr;
 
 namespace Satoshi
 {
-    struct D3D11ImGUIData
+    struct D3D11Data
     {
         ID3D11Device* Device;
         ID3D11DeviceContext* DeviceContext;
@@ -41,6 +41,7 @@ namespace Satoshi
 
         virtual void OnResize(WindowResizeEvent& e) override;
 
+        virtual std::any GetContextRunners() override;
     private:
         void CreateDeviceAndSwapchain(StWindowHandle window);
         void CreateAdapter();

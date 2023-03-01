@@ -54,6 +54,14 @@ void Satoshi::D3D11Context::OnResize(WindowResizeEvent& e)
     CreateViewport(e.GetWidth(), e.GetHeight());
 }
 
+std::any Satoshi::D3D11Context::GetContextRunners()
+{
+    D3D11Data externData;
+    externData.Device = m_Device.Get();
+    externData.DeviceContext = m_DeviceContext.Get();
+    return externData;
+}
+
 void Satoshi::D3D11Context::ClearTarget()
 {
     m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), NULL);

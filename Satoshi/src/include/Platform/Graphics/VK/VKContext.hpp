@@ -51,6 +51,8 @@ namespace Satoshi
 
         virtual void OnResize(WindowResizeEvent& e) override;
 
+        virtual std::any GetContextRunners() override;
+
     private:
         
 

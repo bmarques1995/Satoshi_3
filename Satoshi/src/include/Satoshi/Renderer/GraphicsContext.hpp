@@ -26,6 +26,7 @@ namespace Satoshi
         virtual void GetGPUName(std::string* output) = 0;
 
         virtual void OnResize(WindowResizeEvent&) = 0;
+        virtual std::any GetContextRunners() = 0;
 
         static GraphicsContext* Create(StWindowHandle window, uint32_t width, uint32_t height, GRAPHICS_API api);
     };

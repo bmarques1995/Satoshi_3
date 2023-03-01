@@ -109,6 +109,11 @@ void Satoshi::D3D12Context::GetGPUName(std::string* output)
 	*output = std::string(name.begin(), name.end());
 }
 
+std::any Satoshi::D3D12Context::GetContextRunners()
+{
+	return nullptr;
+}
+
 void Satoshi::D3D12Context::OnResize(WindowResizeEvent& e)
 {
 	WaitLastFrame();

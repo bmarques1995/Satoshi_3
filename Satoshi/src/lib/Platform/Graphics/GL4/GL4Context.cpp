@@ -63,6 +63,11 @@ void Satoshi::GL4Context::OnResize(WindowResizeEvent& e)
 	CreateViewport();
 }
 
+std::any Satoshi::GL4Context::GetContextRunners()
+{
+	return nullptr;
+}
+
 void Satoshi::GL4Context::CreateDevice()
 {
 #ifdef ST_PLATFORM_WINDOWS

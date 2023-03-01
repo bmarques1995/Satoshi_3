@@ -32,6 +32,8 @@ namespace Satoshi
 
         virtual void OnResize(WindowResizeEvent& e) override;
 
+        virtual std::any GetContextRunners() override;
+
     private:
         float m_ClearColor[4];
         bool m_VSync;

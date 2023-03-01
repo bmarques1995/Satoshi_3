@@ -28,6 +28,8 @@ namespace Satoshi
 
         Window* GetWindow() { return m_Window.get(); }
         GraphicsContext* GetContext() { return m_Context.get(); }
+        ShaderManager* GetShaderManager() { return m_ShaderManager.get(); }
+
         inline static Application* GetInstance() { return s_Instance; }
 
         void PushLayer(Layer* layer);

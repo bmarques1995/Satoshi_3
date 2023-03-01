@@ -102,7 +102,7 @@ void Satoshi::Application::CreateContext()
 {
 	m_Context.reset(GraphicsContext::Create(std::any_cast<StWindowHandle>(m_Window->GetNativeWindow()), m_Window->GetWidth(), m_Window->GetHeight(), m_API));
 	m_Context->SetVSync(true);
-	
+	m_Context->SetClearColor(.3f, .6f, .9f, 1.0f);
 }
 
 void Satoshi::Application::SetAPIAndGraphicsCardToTitle()

@@ -52,6 +52,8 @@ namespace Satoshi
 
         virtual void GetGPUName(std::string* output) override;
 
+        virtual std::any GetContextRunners() override;
+
         virtual void OnResize(WindowResizeEvent& e) override;
     private:
 
