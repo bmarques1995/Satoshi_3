@@ -6,6 +6,8 @@
 #include "Satoshi/Renderer/Shader.hpp"
 #include "Satoshi/Renderer/Buffer.hpp"
 
+#include <glad/wgl.h>
+
 namespace Satoshi
 {
 	
@@ -21,15 +23,24 @@ namespace Satoshi
 		virtual void OnUpdate() override;
 		virtual void OnEvent(Event& event) override;
 	private:
-		//void CreateVertexBuffer(const void* data, size_t size, uint32_t stride, ID3D11Device* device);
-		//void CreateIndexBuffer(const void* data, size_t size, ID3D11Device* device);
 
 		
+
 #pragma region Shader
 
-		//ID3D11DeviceContext* m_Context;
 		std::shared_ptr<Shader> m_Shader;
 
+		uint32_t CompileShader(std::string_view filepath, GLenum shaderKind);
+		bool GotCompileErrors(uint32_t shaderID);
+		uint32_t LinkShaders(std::list<uint32_t> shaders);
+		bool GotLinkErrors(uint32_t programID);
+
+		ShaderGroup m_ShaderGroup;
+		BufferLayout m_Layout;
+
+		static std::unordered_map<SHADER_KIND, GLenum> s_NativeShaderEnums;
+
+		uint32_t m_RawShader;
 #pragma endregion
 
 #pragma region Buffer
@@ -48,6 +59,8 @@ namespace Satoshi
 
 		std::shared_ptr<VertexBuffer> m_VertexBuffer;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+
+		unsigned int VBO, VAO, EBO;
 #pragma endregion
 	};
 }

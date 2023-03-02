@@ -5,6 +5,7 @@
 #include "Satoshi/Core/Core.hpp"
 #include "Satoshi/Core/Layer.hpp"
 #include "Satoshi/Core/Application.hpp"
+#include "Satoshi/Utils/FileHandler.hpp"
 #include "Satoshi/Window/Input.hpp"
 #include "Satoshi/Window/InputCodes.hpp"
 

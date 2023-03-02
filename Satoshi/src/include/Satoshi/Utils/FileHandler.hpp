@@ -2,10 +2,11 @@
 #define FILE_HANDLER_HPP
 
 #include <stpch.hpp>
+#include "Satoshi/Core/Core.hpp"
 
 namespace Satoshi
 {
-	class FileHandler
+	class SATOSHI_API FileHandler
 	{
 	public:
 		static bool ReadTextFile(std::string_view path, std::string* content);

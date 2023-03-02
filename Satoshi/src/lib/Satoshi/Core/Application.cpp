@@ -35,8 +35,7 @@ Satoshi::Application::Application()
 
 
 #if defined DEBUG || defined _DEBUG
-	if(m_API == GRAPHICS_API::D3D11)
-		PushLayer(new ImplLayer(shaderGroup, bufferElements));
+	PushLayer(new ImplLayer(shaderGroup, bufferElements));
 #endif
 }
 
