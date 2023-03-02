@@ -29,6 +29,7 @@ namespace Satoshi
         Window* GetWindow() { return m_Window.get(); }
         GraphicsContext* GetContext() { return m_Context.get(); }
         ShaderManager* GetShaderManager() { return m_ShaderManager.get(); }
+        GRAPHICS_API GetCurrentAPI() { return m_API; }
 
         inline static Application* GetInstance() { return s_Instance; }
 

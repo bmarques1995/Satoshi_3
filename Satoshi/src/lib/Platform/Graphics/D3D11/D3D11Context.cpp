@@ -110,7 +110,7 @@ void Satoshi::D3D11Context::CreateDeviceAndSwapchain(StWindowHandle window)
 
     DXGI_SWAP_CHAIN_DESC sd;
     ZeroMemory(&sd, sizeof(sd));
-    sd.BufferCount = 2;
+    sd.BufferCount = 3;
     sd.BufferDesc.Width = 0;
     sd.BufferDesc.Height = 0;
     sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
