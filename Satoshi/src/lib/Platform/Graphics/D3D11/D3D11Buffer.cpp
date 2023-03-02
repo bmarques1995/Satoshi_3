@@ -38,6 +38,10 @@ void Satoshi::D3D11VertexBuffer::Stage() const
     m_Context->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &m_Stride, &offset);
 }
 
+void Satoshi::D3D11VertexBuffer::RegisterLayout()
+{
+}
+
 Satoshi::D3D11IndexBuffer::D3D11IndexBuffer(const void* data, size_t count)
 {
     HRESULT hr;

@@ -16,8 +16,9 @@ namespace Satoshi
 		~D3D11Shader();
 
 		virtual void Stage() const override;
-		virtual const uint32_t GetStride() const override;
 		virtual const uint32_t GetOffset() const override;
+
+		virtual const BufferLayout& GetLayout() const override;
 	private:
 		void CreateShaders(const ShaderGroup& shaderGroup, ID3D11Device* device);
 		void CreateInputLayout(const ShaderGroup& shaderGroup, ID3D11Device* device);

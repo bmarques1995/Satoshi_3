@@ -23,14 +23,14 @@ void Satoshi::D3D11Shader::Stage() const
     }
 }
 
-const uint32_t Satoshi::D3D11Shader::GetStride() const
-{
-    return m_Layout.GetStride();
-}
-
 const uint32_t Satoshi::D3D11Shader::GetOffset() const
 {
     return 0;
+}
+
+const Satoshi::BufferLayout& Satoshi::D3D11Shader::GetLayout() const
+{
+    return m_Layout;
 }
 
 void Satoshi::D3D11Shader::CreateShaders(const ShaderGroup& shaderGroup, ID3D11Device* device)

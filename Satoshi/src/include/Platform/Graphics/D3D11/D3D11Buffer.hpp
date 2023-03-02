@@ -13,6 +13,7 @@ namespace Satoshi
 		~D3D11VertexBuffer();
 
 		virtual void Stage() const override;
+		virtual void RegisterLayout() override;
 	private:
 		uint32_t m_Stride;
 		ComPtr<ID3D11Buffer> m_VertexBuffer;

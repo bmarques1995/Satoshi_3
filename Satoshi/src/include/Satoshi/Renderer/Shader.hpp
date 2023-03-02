@@ -107,8 +107,9 @@ namespace Satoshi
 	{
 	public:
 		virtual void Stage() const = 0;
-		virtual const uint32_t GetStride() const = 0;
 		virtual const uint32_t GetOffset() const = 0;
+
+		virtual const BufferLayout& GetLayout() const = 0;
 
 		static Shader* Create(ShaderGroup shaderGroup, const std::initializer_list<BufferElement>& elements, GRAPHICS_API api);
 	};

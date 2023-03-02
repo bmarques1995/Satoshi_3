@@ -3,6 +3,7 @@
 
 #include <stpch.hpp>
 #include "Satoshi/Renderer/RendererAPI.hpp"
+#include "Satoshi/Renderer/Shader.hpp"
 
 namespace Satoshi
 {
@@ -10,8 +11,9 @@ namespace Satoshi
 	{
 	public:
 		virtual void Stage() const = 0;
+		virtual void RegisterLayout() = 0;
 
-		static VertexBuffer* Create(const void* data, size_t size, uint32_t stride, GRAPHICS_API api);
+		static VertexBuffer* Create(const void* data, size_t size, const BufferLayout& layout, GRAPHICS_API api);
 	};
 
 	class IndexBuffer
