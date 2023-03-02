@@ -86,6 +86,10 @@ void Satoshi::D3D11Context::DispatchCommands()
 
 void Satoshi::D3D11Context::Draw(uint32_t elements)
 {
+    m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    m_DeviceContext->RSSetScissorRects(1, &m_ScissorRect);
+    m_DeviceContext->RSSetViewports(1, &m_Viewport);
+    m_DeviceContext->DrawIndexedInstanced(elements, 1, 0, 0, 0);
 }
 
 void Satoshi::D3D11Context::NewFrame()
@@ -118,7 +122,7 @@ void Satoshi::D3D11Context::CreateDeviceAndSwapchain(StWindowHandle window)
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;
-    sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+    sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
     HRESULT hr;
     hr = D3D11CreateDeviceAndSwapChain

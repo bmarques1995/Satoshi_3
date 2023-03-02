@@ -57,7 +57,7 @@ namespace Satoshi
 					std::stringstream path;
 					path << "assets/shaders/HLSL/" << baseShaderName;
 					m_BaseShaderPath = path.str();
-					m_ShaderVersion = SHADER_VERSION::HLSL_5_1;
+					m_ShaderVersion = SHADER_VERSION::HLSL_5_0;
 					break;
 				}
 				case Satoshi::GRAPHICS_API::D3D12: 
@@ -65,14 +65,14 @@ namespace Satoshi
 					std::stringstream path;
 					path << "assets/shaders/HLSL/" << baseShaderName;
 					m_BaseShaderPath = path.str();
-					m_ShaderVersion = SHADER_VERSION::HLSL_5_1;
+					m_ShaderVersion = SHADER_VERSION::HLSL_5_0;
 					break;
 				}
 #endif
 				default:
 				{
 					m_BaseShaderPath = "";
-					m_ShaderVersion = SHADER_VERSION::HLSL_5_1;
+					m_ShaderVersion = SHADER_VERSION::HLSL_5_0;
 					break; 
 				}
 			}

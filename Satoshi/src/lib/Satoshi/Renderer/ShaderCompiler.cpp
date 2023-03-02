@@ -15,6 +15,6 @@ const std::unordered_map<Satoshi::SHADER_VERSION, std::string_view> Satoshi::Sha
 	{SHADER_VERSION::GL_GLSL, ""},
 	{SHADER_VERSION::VK_GLSL, ""},
 	{SHADER_VERSION::VK_HLSL, ""},
-	{SHADER_VERSION::HLSL_5_1, "_5_1"},
+	{SHADER_VERSION::HLSL_5_0, "_5_0"},
 };
 

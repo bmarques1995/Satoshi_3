@@ -1,5 +1,6 @@
 #include "Satoshi/Core/Application.hpp"
 #include "Satoshi/Core/Console.hpp"
+#include "Satoshi/Core/ImplLayer.hpp"
 #include "Satoshi/Events/ApplicationEvent.hpp"
 #include "Satoshi/Core/ApplicationStarter.hpp"
 #include "Satoshi/Window/Input.hpp"
@@ -26,6 +27,17 @@ Satoshi::Application::Application()
 		}
 	);
 	m_ShaderManager->CompileShaderFamily(shaderGroup);
+
+	std::initializer_list<Satoshi::BufferElement> bufferElements = {
+			{Satoshi::ShaderDataType::Float3, "POSITION", false},
+			{Satoshi::ShaderDataType::Float4, "COLOR", false}
+	};
+
+
+#if defined DEBUG || defined _DEBUG
+	if(m_API == GRAPHICS_API::D3D11)
+		PushLayer(new ImplLayer(shaderGroup, bufferElements));
+#endif
 }
 
 Satoshi::Application::~Application()
@@ -44,11 +56,13 @@ void Satoshi::Application::Run()
 		m_Context->NewFrame();
 		m_Context->ReceiveCommands();
 		m_Context->ClearTarget();
+		for (Layer* layer : m_LayerStack)
+			layer->OnUpdate();
+		m_Context->Draw(3);
 		m_Context->DispatchCommands();
 		m_Context->Present();
 		m_Context->EndFrame();
-		for (Layer* layer : m_LayerStack)
-			layer->OnUpdate();
+		
 	}
 }
 

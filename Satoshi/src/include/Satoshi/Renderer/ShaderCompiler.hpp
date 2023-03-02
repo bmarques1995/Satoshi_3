@@ -30,7 +30,7 @@ namespace Satoshi
 		GL_GLSL,
 		VK_GLSL,
 		VK_HLSL,
-		HLSL_5_1
+		HLSL_5_0
 	};
 
 	class ShaderCompiler
