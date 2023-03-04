@@ -30,7 +30,7 @@ namespace Satoshi
 
 		}
 
-		ShaderGroup(std::string_view baseShaderName, GRAPHICS_API api, const std::initializer_list<ShaderDetails>& shadersDetails) :
+		ShaderGroup(std::string_view baseShaderName, GRAPHICS_API api, const std::initializer_list<ShaderDetails>& shadersDetails, bool UseHLSL) :
 			m_ShadersDetails(shadersDetails)
 		{
 			switch (api)
@@ -46,7 +46,7 @@ namespace Satoshi
 				case Satoshi::GRAPHICS_API::VK: 
 				{
 					std::stringstream path;
-					path << "assets/shaders/GLSL/" << baseShaderName;
+					path << (UseHLSL ? "assets/shaders/HLSL/" : "assets/shaders/GLSL/") << baseShaderName;
 					m_BaseShaderPath = path.str();
 					m_ShaderVersion = SHADER_VERSION::VK_GLSL;
 					break;
@@ -91,7 +91,7 @@ namespace Satoshi
 		virtual void CompileShaderFamily(const ShaderGroup& shaderGroup) = 0;
 		virtual const std::string& BuildBlobFilename(std::string_view baseShaderPath, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion) = 0;
 
-		static ShaderManager* Create(GRAPHICS_API api);
+		static ShaderManager* Create(GRAPHICS_API api, bool useHLSL);
 	protected:
 		static std::string s_Filename;
 	};

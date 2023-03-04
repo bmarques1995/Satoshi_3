@@ -2,6 +2,16 @@
 #include "Satoshi/Utils/FileHandler.hpp"
 #include "Satoshi/Core/Console.hpp"
 
+std::unordered_map<Satoshi::SHADER_KIND, shaderc_shader_kind> Satoshi::VKShaderCompiler::s_MappedShaderKinds = 
+{
+	{SHADER_KIND::SHADER_KIND_VERTEX, shaderc_shader_kind::shaderc_vertex_shader},
+	{SHADER_KIND::SHADER_KIND_PIXEL, shaderc_shader_kind::shaderc_fragment_shader},
+	{SHADER_KIND::SHADER_KIND_GEOMETRY, shaderc_shader_kind::shaderc_geometry_shader},
+	{SHADER_KIND::SHADER_KIND_DOMAIN, shaderc_shader_kind::shaderc_glsl_tess_evaluation_shader},
+	{SHADER_KIND::SHADER_KIND_HULL, shaderc_shader_kind::shaderc_glsl_tess_control_shader},
+	{SHADER_KIND::SHADER_KIND_COMPUTE, shaderc_shader_kind::shaderc_compute_shader}
+};
+
 Satoshi::VKShaderCompiler::VKShaderCompiler(bool useHLSL) :
 	m_UseHLSL(useHLSL)
 {
@@ -23,7 +33,7 @@ Satoshi::COMPILE_ERRORS Satoshi::VKShaderCompiler::CompileFromFile(std::string_v
 	options.SetSourceLanguage(m_UseHLSL ? shaderc_source_language::shaderc_source_language_hlsl : shaderc_source_language::shaderc_source_language_glsl);
 	options.SetOptimizationLevel((shaderc_optimization_level)optimizationLevel);
 
-	shaderc::SpvCompilationResult result = compiler.CompileGlslToSpv(shaderSource, shaderc_shader_kind::shaderc_vertex_shader, "./shaders/HLSL/color.vs.spv", options);
+	shaderc::SpvCompilationResult result = compiler.CompileGlslToSpv(shaderSource, s_MappedShaderKinds[shaderKind], s_InputFile.c_str(), options);
 	if (result.GetCompilationStatus() != shaderc_compilation_status_success)
 	{
 		Console::CoreError("{0}", result.GetErrorMessage());

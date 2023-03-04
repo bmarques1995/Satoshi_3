@@ -18,13 +18,13 @@ Satoshi::Application::Application()
 	CreateContext();
 	SetAPIAndGraphicsCardToTitle();
 	
-	m_ShaderManager.reset(ShaderManager::Create(m_API));
+	m_ShaderManager.reset(ShaderManager::Create(m_API, false));
 	
 	Satoshi::ShaderGroup shaderGroup("Triangle", m_API,
 		{
 			{Satoshi::SHADER_KIND::SHADER_KIND_VERTEX},
 			{Satoshi::SHADER_KIND::SHADER_KIND_PIXEL}
-		}
+		}, false
 	);
 	m_ShaderManager->CompileShaderFamily(shaderGroup);
 

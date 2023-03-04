@@ -1,8 +1,8 @@
 #include "Platform/Graphics/VK/VKShaderManager.hpp"
 #include "Satoshi/Utils/FileHandler.hpp"
 
-Satoshi::VKShaderManager::VKShaderManager() :
-	m_Compiler(new VKShaderCompiler())
+Satoshi::VKShaderManager::VKShaderManager(bool useHLSL) :
+	m_Compiler(new VKShaderCompiler(useHLSL))
 {
 }
 

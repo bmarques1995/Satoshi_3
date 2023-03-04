@@ -9,7 +9,7 @@ namespace Satoshi
     class VKShaderManager : public ShaderManager
     {
     public:
-        VKShaderManager();
+        VKShaderManager(bool useHLSL);
         ~VKShaderManager();
 
         virtual void CompileShaderFamily(const ShaderGroup& shaderGroup) override;

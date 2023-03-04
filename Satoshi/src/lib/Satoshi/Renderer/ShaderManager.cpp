@@ -9,14 +9,14 @@ std::string Satoshi::ShaderManager::s_Filename;
 #include "Platform/Graphics/D3D12/D3D12ShaderManager.hpp"
 #endif // ST_PLATFORM_WINDOWS
 
-Satoshi::ShaderManager* Satoshi::ShaderManager::Create(GRAPHICS_API api)
+Satoshi::ShaderManager* Satoshi::ShaderManager::Create(GRAPHICS_API api, bool useHLSL)
 {
 	switch (api)
 	{
 	case Satoshi::GRAPHICS_API::GL4:
 		return new GL4ShaderManager();
 	case Satoshi::GRAPHICS_API::VK:
-		return new VKShaderManager();
+		return new VKShaderManager(useHLSL);
 #ifdef ST_PLATFORM_WINDOWS
 	case Satoshi::GRAPHICS_API::D3D11:
 		return new D3D11ShaderManager();

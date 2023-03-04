@@ -9,7 +9,7 @@ namespace Satoshi
     class VKShaderCompiler : public ShaderCompiler
     {
     public:
-        VKShaderCompiler(bool useHLSL = false);
+        VKShaderCompiler(bool useHLSL);
         ~VKShaderCompiler();
 
         virtual COMPILE_ERRORS CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, uint32_t optimizationLevel, uint32_t extraFlags = 0) override;
@@ -25,6 +25,8 @@ namespace Satoshi
 
         void BuildInputFile(SHADER_KIND shaderKind, std::string_view baseShaderPath);
         void BuildOutputFile(SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, std::string_view baseShaderPath);
+
+        static std::unordered_map<SHADER_KIND, shaderc_shader_kind> s_MappedShaderKinds;
     };
 }
 
