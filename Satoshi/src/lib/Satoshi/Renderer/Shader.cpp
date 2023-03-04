@@ -1,6 +1,6 @@
 #include "Satoshi/Renderer/Shader.hpp"
 #include "Platform/Graphics/GL4/GL4Shader.hpp"
-//#include "Platform/Graphics/VK/VKShader.hpp"
+#include "Platform/Graphics/VK/VKShader.hpp"
 #ifdef ST_PLATFORM_WINDOWS
 #include "Platform/Graphics/D3D11/D3D11Shader.hpp"
 //#include "Platform/Graphics/D3D12/D3D12Shader.hpp"
@@ -12,8 +12,8 @@ Satoshi::Shader* Satoshi::Shader::Create(ShaderGroup shaderGroup, const std::ini
 	{
 	case Satoshi::GRAPHICS_API::GL4:
 		return new GL4Shader(shaderGroup, elements);
-	/*case Satoshi::GRAPHICS_API::VK:
-		return new VKShader(window);*/
+	case Satoshi::GRAPHICS_API::VK:
+		return new VKShader(shaderGroup, elements);
 #ifdef ST_PLATFORM_WINDOWS
 	case Satoshi::GRAPHICS_API::D3D11:
 		return new D3D11Shader(shaderGroup, elements);

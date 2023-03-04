@@ -23,17 +23,7 @@ namespace Satoshi
 		virtual void OnUpdate() override;
 		virtual void OnEvent(Event& event) override;
 	private:
-		
-		void CreateShader(const ShaderGroup& shaderGroup, const std::initializer_list<BufferElement>& elements);
-		VkShaderModule CreateShaderModule(const void* bytecode, size_t size);
 
-		static std::unordered_map<SHADER_KIND, VkShaderStageFlagBits> s_VulkanShaderNames;
-		VkPipelineLayout m_PipelineLayout;
-		VkPipeline m_GraphicsPipeline;
-
-		BufferLayout m_Layout;
-
-		VkFormat GetNativeFormat(ShaderDataType type);
 #pragma region Shader
 
 		std::shared_ptr<Shader> m_Shader;
@@ -56,10 +46,10 @@ namespace Satoshi
 			0,1,2
 		};
 
-		//std::shared_ptr<VertexBuffer> m_VertexBuffer;
-		//std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 
-		VkBuffer m_VertexBuffer;
+		/*VkBuffer m_VertexBuffer;
 		VkDeviceMemory m_VertexBufferMemory;
 		VkBuffer m_IndexBuffer;
 		VkDeviceMemory m_IndexBufferMemory;
@@ -68,9 +58,9 @@ namespace Satoshi
 		void CreateVertexBuffer(const void* data, size_t size);
 		void CreateIndexBuffer(const void* data, size_t count);
 
-		void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
-		void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
-		uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
+		void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+		void CopyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+		uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);*/
 
 #pragma endregion
 	};
