@@ -29,6 +29,17 @@ namespace Satoshi
         VkRenderPassBeginInfo RenderPassInfo;
     };
 
+    struct VKData
+    {
+        VkDevice_T* Device;
+        VkPhysicalDevice_T* PhysicalDevice;
+        VkCommandBuffer_T* CommandBuffer;
+        VkCommandPool_T* CommandPool;
+        VkRenderPass_T* RenderPass;
+        VkQueue_T* GraphicsQueue;
+        
+    };
+
     class VKContext : public GraphicsContext
     {
     public:
@@ -40,6 +51,8 @@ namespace Satoshi
         virtual void ReceiveCommands() override;
         virtual void DispatchCommands() override;
         virtual void Draw(uint32_t elements) override;
+        virtual void SetTopology() override;
+
         virtual void NewFrame() override;
         virtual void EndFrame() override;
         virtual void Present() override;

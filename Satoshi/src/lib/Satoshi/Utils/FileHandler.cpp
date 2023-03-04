@@ -44,7 +44,7 @@ bool Satoshi::FileHandler::WriteTextFile(std::string_view path, std::string cont
 	return stored;
 }
 
-bool Satoshi::FileHandler::ReadBinFile(std::string_view path, std::byte** content)
+bool Satoshi::FileHandler::ReadBinFile(std::string_view path, std::byte** content, size_t* dataSize)
 {
 	bool loaded = false;
 	std::ifstream fileStream;
@@ -61,6 +61,7 @@ bool Satoshi::FileHandler::ReadBinFile(std::string_view path, std::byte** conten
 	auto start = fileStream.tellg();
 	fileStream.seekg(0, std::ios::end);
 	uint64_t fsize = fileStream.tellg() - start;
+	*dataSize = fsize;
 	fileStream.seekg(0, std::ios::beg);
 	*content = new std::byte[fsize];
 	fileStream.read(reinterpret_cast<char*>(*content), fsize);

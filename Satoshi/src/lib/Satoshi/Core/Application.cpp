@@ -55,6 +55,7 @@ void Satoshi::Application::Run()
 		m_Context->NewFrame();
 		m_Context->ReceiveCommands();
 		m_Context->ClearTarget();
+		m_Context->SetTopology();
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate();
 		m_Context->Draw(3);

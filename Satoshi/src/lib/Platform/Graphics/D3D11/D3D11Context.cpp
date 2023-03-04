@@ -86,10 +86,15 @@ void Satoshi::D3D11Context::DispatchCommands()
 
 void Satoshi::D3D11Context::Draw(uint32_t elements)
 {
-    m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     m_DeviceContext->RSSetScissorRects(1, &m_ScissorRect);
     m_DeviceContext->RSSetViewports(1, &m_Viewport);
+    m_DeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     m_DeviceContext->DrawIndexedInstanced(elements, 1, 0, 0, 0);
+}
+
+void Satoshi::D3D11Context::SetTopology()
+{
+    
 }
 
 void Satoshi::D3D11Context::NewFrame()
