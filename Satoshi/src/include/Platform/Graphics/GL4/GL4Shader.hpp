@@ -25,7 +25,7 @@ namespace Satoshi
         ShaderGroup m_ShaderGroup;
         BufferLayout m_Layout;
 
-        static std::unordered_map<SHADER_KIND, GLenum> s_NativeShaderEnums;
+        static std::unordered_map<GRAPHICS_SHADER_KIND, GLenum> s_NativeShaderEnums;
 
         uint32_t m_Shader;
     };

@@ -73,22 +73,20 @@ void Satoshi::D3D11Shader::CreateInputLayout(const ShaderGroup& shaderGroup, ID3
 
 void Satoshi::D3D11Shader::RegisterShaderBuilders()
 {
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D11Shader::BuildVertexShader, this, std::placeholders::_1, std::placeholders::_2);
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D11Shader::BuildPixelShader, this, std::placeholders::_1, std::placeholders::_2);
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D11Shader::BuildGeometryShader, this, std::placeholders::_1, std::placeholders::_2);
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D11Shader::BuildHullShader, this, std::placeholders::_1, std::placeholders::_2);
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D11Shader::BuildDomainShader, this, std::placeholders::_1, std::placeholders::_2);
-    m_ShaderBuilders[SHADER_KIND::SHADER_KIND_COMPUTE] = std::bind(&D3D11Shader::BuildComputeShader, this, std::placeholders::_1, std::placeholders::_2);
+    m_ShaderBuilders[GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D11Shader::BuildVertexShader, this, std::placeholders::_1, std::placeholders::_2);
+    m_ShaderBuilders[GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D11Shader::BuildPixelShader, this, std::placeholders::_1, std::placeholders::_2);
+    m_ShaderBuilders[GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D11Shader::BuildGeometryShader, this, std::placeholders::_1, std::placeholders::_2);
+    m_ShaderBuilders[GRAPHICS_SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D11Shader::BuildHullShader, this, std::placeholders::_1, std::placeholders::_2);
+    m_ShaderBuilders[GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D11Shader::BuildDomainShader, this, std::placeholders::_1, std::placeholders::_2);
 }
 
 void Satoshi::D3D11Shader::RegisterShaderStagers()
 {
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D11Shader::StageVertexShader, this, std::placeholders::_1);
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D11Shader::StagePixelShader, this, std::placeholders::_1);
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D11Shader::StageGeometryShader, this, std::placeholders::_1);
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D11Shader::StageHullShader, this, std::placeholders::_1);
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D11Shader::StageDomainShader, this, std::placeholders::_1);
-    m_ShaderStagers[SHADER_KIND::SHADER_KIND_COMPUTE] = std::bind(&D3D11Shader::StageComputeShader, this, std::placeholders::_1);
+    m_ShaderStagers[GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D11Shader::StageVertexShader, this, std::placeholders::_1);
+    m_ShaderStagers[GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D11Shader::StagePixelShader, this, std::placeholders::_1);
+    m_ShaderStagers[GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D11Shader::StageGeometryShader, this, std::placeholders::_1);
+    m_ShaderStagers[GRAPHICS_SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D11Shader::StageHullShader, this, std::placeholders::_1);
+    m_ShaderStagers[GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D11Shader::StageDomainShader, this, std::placeholders::_1);
 }
 
 void Satoshi::D3D11Shader::BuildVertexShader(std::string_view blobPath, ID3D11Device* device)

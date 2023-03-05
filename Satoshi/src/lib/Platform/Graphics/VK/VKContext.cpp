@@ -117,11 +117,6 @@ void Satoshi::VKContext::Draw(uint32_t elements)
 	vkCmdDrawIndexed(m_CommandBuffer, elements, 1, 0, 0, 0);
 }
 
-void Satoshi::VKContext::SetTopology()
-{
-	
-}
-
 void Satoshi::VKContext::NewFrame()
 {
 	VkResult result = vkAcquireNextImageKHR(m_LogicalDevice, m_SwapChain, UINT64_MAX, m_AvailableSemaphore, VK_NULL_HANDLE, &m_CurrentFrame.ImageIndex);

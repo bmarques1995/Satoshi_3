@@ -161,10 +161,6 @@ void Satoshi::GL4Context::Draw(uint32_t elements)
 	glDrawElementsInstanced(GL_TRIANGLES, elements, GL_UNSIGNED_INT, 0, 1);
 }
 
-void Satoshi::GL4Context::SetTopology()
-{
-}
-
 void Satoshi::GL4Context::NewFrame()
 {
 }

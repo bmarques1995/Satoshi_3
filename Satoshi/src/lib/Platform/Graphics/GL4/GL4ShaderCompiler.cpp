@@ -8,12 +8,12 @@ Satoshi::GL4ShaderCompiler::~GL4ShaderCompiler()
 {
 }
 
-Satoshi::COMPILE_ERRORS Satoshi::GL4ShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, uint32_t optimizationLevel, uint32_t extraFlags)
+Satoshi::COMPILE_ERRORS Satoshi::GL4ShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, uint32_t optimizationLevel, uint32_t extraFlags)
 {
     return COMPILE_ERRORS::COMPILER_COMPILE_SUCCESS;
 }
 
-const std::unordered_map<Satoshi::SHADER_KIND, std::string_view> Satoshi::GL4ShaderCompiler::GetShaderKindStringMap()
+const std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, std::string_view> Satoshi::GL4ShaderCompiler::GetShaderKindStringMap()
 {
     return s_ShaderKindStringMap;
 }

@@ -80,7 +80,7 @@ const Satoshi::BufferLayout& Satoshi::D3D12Shader::GetLayout() const
     return m_Layout;
 }
 
-void Satoshi::D3D12Shader::ReadBlob(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, SHADER_KIND shaderKind, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
+void Satoshi::D3D12Shader::ReadBlob(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, GRAPHICS_SHADER_KIND shaderKind, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
     auto shaderManager = Application::GetInstance()->GetShaderManager();
     std::string_view filepath = shaderManager->BuildBlobFilename(baseShaderPath, shaderKind, shaderVersion);
@@ -90,12 +90,11 @@ void Satoshi::D3D12Shader::ReadBlob(std::string_view baseShaderPath, SHADER_VERS
 
 void Satoshi::D3D12Shader::RegisterShaderBuilders()
 {
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D12Shader::RegisterVertexShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D12Shader::RegisterPixelShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D12Shader::RegisterGeometryShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D12Shader::RegisterHullShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D12Shader::RegisterDomainShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
-    m_ShaderRegisters[SHADER_KIND::SHADER_KIND_COMPUTE] = std::bind(&D3D12Shader::RegisterComputeShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    m_ShaderRegisters[GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX] = std::bind(&D3D12Shader::RegisterVertexShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    m_ShaderRegisters[GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL] = std::bind(&D3D12Shader::RegisterPixelShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    m_ShaderRegisters[GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY] = std::bind(&D3D12Shader::RegisterGeometryShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    m_ShaderRegisters[GRAPHICS_SHADER_KIND::SHADER_KIND_HULL] = std::bind(&D3D12Shader::RegisterHullShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+    m_ShaderRegisters[GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN] = std::bind(&D3D12Shader::RegisterDomainShader, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 }
 
 void Satoshi::D3D12Shader::BuildBlender(D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc)
@@ -209,36 +208,32 @@ void Satoshi::D3D12Shader::CreateGraphicsRootSignature(ID3D12RootSignature** roo
 
 void Satoshi::D3D12Shader::RegisterVertexShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
-    ReadBlob(baseShaderPath, shaderVersion, SHADER_KIND::SHADER_KIND_VERTEX, graphicsDesc, shaderBlob);
+    ReadBlob(baseShaderPath, shaderVersion, GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX, graphicsDesc, shaderBlob);
     graphicsDesc->VS = { (*shaderBlob)->GetBufferPointer(), (*shaderBlob)->GetBufferSize() };
 }
 
 void Satoshi::D3D12Shader::RegisterPixelShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
-    ReadBlob(baseShaderPath, shaderVersion, SHADER_KIND::SHADER_KIND_PIXEL, graphicsDesc, shaderBlob);
+    ReadBlob(baseShaderPath, shaderVersion, GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL, graphicsDesc, shaderBlob);
     graphicsDesc->PS = { (*shaderBlob)->GetBufferPointer(), (*shaderBlob)->GetBufferSize() };
 }
 
 void Satoshi::D3D12Shader::RegisterGeometryShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
-    ReadBlob(baseShaderPath, shaderVersion, SHADER_KIND::SHADER_KIND_GEOMETRY, graphicsDesc, shaderBlob);
+    ReadBlob(baseShaderPath, shaderVersion, GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY, graphicsDesc, shaderBlob);
     graphicsDesc->GS = { (*shaderBlob)->GetBufferPointer(), (*shaderBlob)->GetBufferSize() };
 }
 
 void Satoshi::D3D12Shader::RegisterHullShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
-    ReadBlob(baseShaderPath, shaderVersion, SHADER_KIND::SHADER_KIND_HULL, graphicsDesc, shaderBlob); 
+    ReadBlob(baseShaderPath, shaderVersion, GRAPHICS_SHADER_KIND::SHADER_KIND_HULL, graphicsDesc, shaderBlob);
     graphicsDesc->HS = { (*shaderBlob)->GetBufferPointer(), (*shaderBlob)->GetBufferSize() };
 }
 
 void Satoshi::D3D12Shader::RegisterDomainShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
 {
-    ReadBlob(baseShaderPath, shaderVersion, SHADER_KIND::SHADER_KIND_DOMAIN, graphicsDesc, shaderBlob);
+    ReadBlob(baseShaderPath, shaderVersion, GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN, graphicsDesc, shaderBlob);
     graphicsDesc->DS = { (*shaderBlob)->GetBufferPointer(), (*shaderBlob)->GetBufferSize() };
-}
-
-void Satoshi::D3D12Shader::RegisterComputeShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob)
-{
 }
 
 DXGI_FORMAT Satoshi::D3D12Shader::GetFormat(ShaderDataType type)

@@ -57,8 +57,8 @@ namespace Satoshi
 		ComPtr<ID3D11ComputeShader> m_ComputeShader;
 		ComPtr<ID3DBlob> m_ComputeBlob;
 
-		std::unordered_map<SHADER_KIND, std::function<void(std::string_view, ID3D11Device*)>> m_ShaderBuilders;
-		mutable std::unordered_map<SHADER_KIND, std::function<void(ID3D11DeviceContext*)>> m_ShaderStagers;
+		std::unordered_map<GRAPHICS_SHADER_KIND, std::function<void(std::string_view, ID3D11Device*)>> m_ShaderBuilders;
+		mutable std::unordered_map<GRAPHICS_SHADER_KIND, std::function<void(ID3D11DeviceContext*)>> m_ShaderStagers;
 
 		ID3D11DeviceContext* m_Context;
 

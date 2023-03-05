@@ -92,11 +92,6 @@ void Satoshi::D3D11Context::Draw(uint32_t elements)
     m_DeviceContext->DrawIndexedInstanced(elements, 1, 0, 0, 0);
 }
 
-void Satoshi::D3D11Context::SetTopology()
-{
-    
-}
-
 void Satoshi::D3D11Context::NewFrame()
 {
 }

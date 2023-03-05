@@ -16,7 +16,6 @@ namespace Satoshi
         virtual void ReceiveCommands() = 0;
         virtual void DispatchCommands() = 0;
         virtual void Draw(uint32_t elements) = 0;
-        virtual void SetTopology() = 0;
         virtual void NewFrame() = 0;
         virtual void EndFrame() = 0;
         virtual void Present() = 0;

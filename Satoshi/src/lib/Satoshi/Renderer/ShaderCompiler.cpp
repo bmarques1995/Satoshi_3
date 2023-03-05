@@ -1,13 +1,12 @@
 #include "Satoshi/Renderer/ShaderCompiler.hpp"
 
-const std::unordered_map<Satoshi::SHADER_KIND, std::string_view> Satoshi::ShaderCompiler::s_ShaderKindStringMap =
+const std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, std::string_view> Satoshi::ShaderCompiler::s_ShaderKindStringMap =
 {
-	{SHADER_KIND::SHADER_KIND_VERTEX, "vs"},
-	{SHADER_KIND::SHADER_KIND_PIXEL, "ps"},
-	{SHADER_KIND::SHADER_KIND_GEOMETRY, "gs"},
-	{SHADER_KIND::SHADER_KIND_HULL, "hs"},
-	{SHADER_KIND::SHADER_KIND_DOMAIN, "ds"},
-	{SHADER_KIND::SHADER_KIND_COMPUTE, "cs"},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX, "vs"},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL, "ps"},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY, "gs"},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_HULL, "hs"},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN, "ds"}
 };
 
 const std::unordered_map<Satoshi::SHADER_VERSION, std::string_view> Satoshi::ShaderCompiler::s_ShaderVersion =

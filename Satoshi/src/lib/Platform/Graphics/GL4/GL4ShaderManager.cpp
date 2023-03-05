@@ -14,7 +14,7 @@ void Satoshi::GL4ShaderManager::CompileShaderFamily(const ShaderGroup& shaderGro
 {
 }
 
-const std::string& Satoshi::GL4ShaderManager::BuildBlobFilename(std::string_view baseShaderPath, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
+const std::string& Satoshi::GL4ShaderManager::BuildBlobFilename(std::string_view baseShaderPath, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
 {
 	std::stringstream outputFile;
 	auto shaderKindStringMap = m_Compiler->GetShaderKindStringMap();

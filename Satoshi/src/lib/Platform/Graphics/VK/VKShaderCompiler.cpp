@@ -2,14 +2,13 @@
 #include "Satoshi/Utils/FileHandler.hpp"
 #include "Satoshi/Core/Console.hpp"
 
-std::unordered_map<Satoshi::SHADER_KIND, shaderc_shader_kind> Satoshi::VKShaderCompiler::s_MappedShaderKinds = 
+std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, shaderc_shader_kind> Satoshi::VKShaderCompiler::s_MappedShaderKinds =
 {
-	{SHADER_KIND::SHADER_KIND_VERTEX, shaderc_shader_kind::shaderc_vertex_shader},
-	{SHADER_KIND::SHADER_KIND_PIXEL, shaderc_shader_kind::shaderc_fragment_shader},
-	{SHADER_KIND::SHADER_KIND_GEOMETRY, shaderc_shader_kind::shaderc_geometry_shader},
-	{SHADER_KIND::SHADER_KIND_DOMAIN, shaderc_shader_kind::shaderc_glsl_tess_evaluation_shader},
-	{SHADER_KIND::SHADER_KIND_HULL, shaderc_shader_kind::shaderc_glsl_tess_control_shader},
-	{SHADER_KIND::SHADER_KIND_COMPUTE, shaderc_shader_kind::shaderc_compute_shader}
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX, shaderc_shader_kind::shaderc_vertex_shader},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL, shaderc_shader_kind::shaderc_fragment_shader},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY, shaderc_shader_kind::shaderc_geometry_shader},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN, shaderc_shader_kind::shaderc_glsl_tess_evaluation_shader},
+	{GRAPHICS_SHADER_KIND::SHADER_KIND_HULL, shaderc_shader_kind::shaderc_glsl_tess_control_shader}
 };
 
 Satoshi::VKShaderCompiler::VKShaderCompiler(bool useHLSL) :
@@ -21,7 +20,7 @@ Satoshi::VKShaderCompiler::~VKShaderCompiler()
 {
 }
 
-Satoshi::COMPILE_ERRORS Satoshi::VKShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, uint32_t optimizationLevel, uint32_t extraFlags)
+Satoshi::COMPILE_ERRORS Satoshi::VKShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, uint32_t optimizationLevel, uint32_t extraFlags)
 {
 	BuildInputFile(shaderKind, baseShaderPath);
 	std::string shaderSource;
@@ -47,7 +46,7 @@ Satoshi::COMPILE_ERRORS Satoshi::VKShaderCompiler::CompileFromFile(std::string_v
 	return COMPILE_ERRORS::COMPILER_COMPILE_SUCCESS;
 }
 
-const std::unordered_map<Satoshi::SHADER_KIND, std::string_view> Satoshi::VKShaderCompiler::GetShaderKindStringMap()
+const std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, std::string_view> Satoshi::VKShaderCompiler::GetShaderKindStringMap()
 {
     return s_ShaderKindStringMap;
 }
@@ -57,7 +56,7 @@ const std::unordered_map<Satoshi::SHADER_VERSION, std::string_view> Satoshi::VKS
     return s_ShaderVersion;
 }
 
-void Satoshi::VKShaderCompiler::BuildInputFile(SHADER_KIND shaderKind, std::string_view baseShaderPath)
+void Satoshi::VKShaderCompiler::BuildInputFile(GRAPHICS_SHADER_KIND shaderKind, std::string_view baseShaderPath)
 {
 	std::stringstream inputFile;
 	auto shaderKindStringMap = s_ShaderKindStringMap;
@@ -68,7 +67,7 @@ void Satoshi::VKShaderCompiler::BuildInputFile(SHADER_KIND shaderKind, std::stri
 	s_InputFile = inputFile.str();
 }
 
-void Satoshi::VKShaderCompiler::BuildOutputFile(SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, std::string_view baseShaderPath)
+void Satoshi::VKShaderCompiler::BuildOutputFile(GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, std::string_view baseShaderPath)
 {
 	std::stringstream outputFile;
 	auto shaderKindStringMap = s_ShaderKindStringMap;

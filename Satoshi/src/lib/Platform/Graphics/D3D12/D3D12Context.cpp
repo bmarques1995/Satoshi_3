@@ -78,10 +78,6 @@ void Satoshi::D3D12Context::Draw(uint32_t elements)
 	m_CommandList->DrawIndexedInstanced(elements, 1, 0, 0, 0);
 }
 
-void Satoshi::D3D12Context::SetTopology()
-{
-}
-
 void Satoshi::D3D12Context::NewFrame()
 {
 	m_CurrentFrame.NextFrameIndex = m_FrameIndex + 1;

@@ -22,7 +22,7 @@ namespace Satoshi
         VkCommandBuffer m_CommandBuffer;
         BufferLayout m_Layout;
 
-        static std::unordered_map<SHADER_KIND, VkShaderStageFlagBits> s_VulkanShaderNames;
+        static std::unordered_map<GRAPHICS_SHADER_KIND, VkShaderStageFlagBits> s_VulkanShaderNames;
 
         VkFormat GetNativeFormat(ShaderDataType type);
         VkShaderModule CreateShaderModule(const void* bytecode, size_t size, VkDevice device);

@@ -37,7 +37,7 @@ void Satoshi::VKShaderManager::CompileShaderFamily(const ShaderGroup& shaderGrou
 	}
 }
 
-const std::string& Satoshi::VKShaderManager::BuildBlobFilename(std::string_view baseShaderPath, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
+const std::string& Satoshi::VKShaderManager::BuildBlobFilename(std::string_view baseShaderPath, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
 {
 	std::stringstream outputFile;
 	auto shaderKindStringMap = m_Compiler->GetShaderKindStringMap();

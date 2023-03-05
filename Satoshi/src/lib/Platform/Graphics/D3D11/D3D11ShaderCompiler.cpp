@@ -12,7 +12,7 @@ Satoshi::D3D11ShaderCompiler::~D3D11ShaderCompiler()
 {
 }
 
-Satoshi::COMPILE_ERRORS Satoshi::D3D11ShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, uint32_t optimizationLevel, uint32_t extraFlags)
+Satoshi::COMPILE_ERRORS Satoshi::D3D11ShaderCompiler::CompileFromFile(std::string_view baseShaderPath, std::string_view entrypoint, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion, uint32_t optimizationLevel, uint32_t extraFlags)
 {
 	BuildInputFile(shaderKind, baseShaderPath);
 	std::string shaderSource;
@@ -43,7 +43,7 @@ Satoshi::COMPILE_ERRORS Satoshi::D3D11ShaderCompiler::CompileFromFile(std::strin
 	return COMPILE_ERRORS::COMPILER_COMPILE_SUCCESS;
 }
 
-const std::unordered_map<Satoshi::SHADER_KIND, std::string_view> Satoshi::D3D11ShaderCompiler::GetShaderKindStringMap()
+const std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, std::string_view> Satoshi::D3D11ShaderCompiler::GetShaderKindStringMap()
 {
     return s_ShaderKindStringMap;
 }
@@ -53,7 +53,7 @@ const std::unordered_map<Satoshi::SHADER_VERSION, std::string_view> Satoshi::D3D
     return s_ShaderVersion;
 }
 
-void Satoshi::D3D11ShaderCompiler::BuildTarget(SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
+void Satoshi::D3D11ShaderCompiler::BuildTarget(GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion)
 {
 	std::stringstream target;
 	auto shaderKindStringMap = s_ShaderKindStringMap;
@@ -63,7 +63,7 @@ void Satoshi::D3D11ShaderCompiler::BuildTarget(SHADER_KIND shaderKind, SHADER_VE
 	s_Target = target.str();
 }
 
-void Satoshi::D3D11ShaderCompiler::BuildInputFile(SHADER_KIND shaderKind, std::string_view baseShaderPath)
+void Satoshi::D3D11ShaderCompiler::BuildInputFile(GRAPHICS_SHADER_KIND shaderKind, std::string_view baseShaderPath)
 {
 	std::stringstream inputFile;
 	auto shaderKindStringMap = s_ShaderKindStringMap;
@@ -73,7 +73,7 @@ void Satoshi::D3D11ShaderCompiler::BuildInputFile(SHADER_KIND shaderKind, std::s
 	s_InputFile = inputFile.str();
 }
 
-void Satoshi::D3D11ShaderCompiler::BuildOutputFile(SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, std::string_view baseShaderPath)
+void Satoshi::D3D11ShaderCompiler::BuildOutputFile(GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION hlslVersion, std::string_view baseShaderPath)
 {
 	std::stringstream outputFile;
 	auto shaderKindStringMap = s_ShaderKindStringMap;

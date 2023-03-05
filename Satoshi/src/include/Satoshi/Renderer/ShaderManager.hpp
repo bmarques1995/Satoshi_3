@@ -9,9 +9,9 @@ namespace Satoshi
 	struct ShaderDetails
 	{
 		std::string_view Entrypoint;
-		SHADER_KIND ShaderKind;
+		GRAPHICS_SHADER_KIND ShaderKind;
 
-		ShaderDetails(SHADER_KIND shaderKind, std::string_view entrypoint = "main") :
+		ShaderDetails(GRAPHICS_SHADER_KIND shaderKind, std::string_view entrypoint = "main") :
 			ShaderKind(shaderKind), Entrypoint(entrypoint)
 		{
 
@@ -89,7 +89,7 @@ namespace Satoshi
 	{
 	public:
 		virtual void CompileShaderFamily(const ShaderGroup& shaderGroup) = 0;
-		virtual const std::string& BuildBlobFilename(std::string_view baseShaderPath, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion) = 0;
+		virtual const std::string& BuildBlobFilename(std::string_view baseShaderPath, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion) = 0;
 
 		static ShaderManager* Create(GRAPHICS_API api, bool useHLSL);
 	protected:

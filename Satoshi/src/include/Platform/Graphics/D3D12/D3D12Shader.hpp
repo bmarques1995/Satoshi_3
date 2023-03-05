@@ -24,7 +24,7 @@ namespace Satoshi
 		ComPtr<ID3D12PipelineState> m_GraphicsPipeline;
 		ComPtr<ID3D12RootSignature> m_RootSignature;
 
-		void ReadBlob(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, SHADER_KIND shaderKind, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
+		void ReadBlob(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, GRAPHICS_SHADER_KIND shaderKind, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
 		void RegisterShaderBuilders();
 
 		void BuildBlender(D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc);
@@ -37,11 +37,10 @@ namespace Satoshi
 		void RegisterGeometryShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
 		void RegisterHullShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
 		void RegisterDomainShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
-		void RegisterComputeShader(std::string_view baseShaderPath, SHADER_VERSION shaderVersion, D3D12_GRAPHICS_PIPELINE_STATE_DESC* graphicsDesc, ComPtr<ID3DBlob>* shaderBlob);
 
 		DXGI_FORMAT GetFormat(ShaderDataType type);
 
-		std::unordered_map<SHADER_KIND, std::function<void(std::string_view, SHADER_VERSION, D3D12_GRAPHICS_PIPELINE_STATE_DESC*, ComPtr<ID3DBlob>*)>> m_ShaderRegisters;
+		std::unordered_map<GRAPHICS_SHADER_KIND, std::function<void(std::string_view, SHADER_VERSION, D3D12_GRAPHICS_PIPELINE_STATE_DESC*, ComPtr<ID3DBlob>*)>> m_ShaderRegisters;
 
 		BufferLayout m_Layout;
 		ShaderGroup m_ShaderGroup;

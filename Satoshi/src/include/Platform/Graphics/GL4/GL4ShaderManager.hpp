@@ -13,7 +13,7 @@ namespace Satoshi
         ~GL4ShaderManager();
 
         virtual void CompileShaderFamily(const ShaderGroup& shaderGroup) override;
-        virtual const std::string& BuildBlobFilename(std::string_view baseShaderPath, SHADER_KIND shaderKind, SHADER_VERSION shaderVersion) override;
+        virtual const std::string& BuildBlobFilename(std::string_view baseShaderPath, GRAPHICS_SHADER_KIND shaderKind, SHADER_VERSION shaderVersion) override;
     private:
         ShaderCompiler* m_Compiler;
     };

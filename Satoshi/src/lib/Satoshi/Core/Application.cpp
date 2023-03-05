@@ -22,8 +22,8 @@ Satoshi::Application::Application()
 	
 	Satoshi::ShaderGroup shaderGroup("Triangle", m_API,
 		{
-			{Satoshi::SHADER_KIND::SHADER_KIND_VERTEX},
-			{Satoshi::SHADER_KIND::SHADER_KIND_PIXEL}
+			{Satoshi::GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX},
+			{Satoshi::GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL}
 		}, false
 	);
 	m_ShaderManager->CompileShaderFamily(shaderGroup);
@@ -55,7 +55,6 @@ void Satoshi::Application::Run()
 		m_Context->NewFrame();
 		m_Context->ReceiveCommands();
 		m_Context->ClearTarget();
-		m_Context->SetTopology();
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate();
 		m_Context->DispatchCommands();

@@ -1,14 +1,13 @@
 #include "Platform/Graphics/VK/VKShader.hpp"
 #include "Satoshi.hpp"
 
-std::unordered_map<Satoshi::SHADER_KIND, VkShaderStageFlagBits> Satoshi::VKShader::s_VulkanShaderNames =
+std::unordered_map<Satoshi::GRAPHICS_SHADER_KIND, VkShaderStageFlagBits> Satoshi::VKShader::s_VulkanShaderNames =
 {
-    {SHADER_KIND::SHADER_KIND_VERTEX, VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT},
-    {SHADER_KIND::SHADER_KIND_PIXEL, VkShaderStageFlagBits::VK_SHADER_STAGE_FRAGMENT_BIT},
-    {SHADER_KIND::SHADER_KIND_GEOMETRY, VkShaderStageFlagBits::VK_SHADER_STAGE_GEOMETRY_BIT},
-    {SHADER_KIND::SHADER_KIND_HULL, VkShaderStageFlagBits::VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT},
-    {SHADER_KIND::SHADER_KIND_DOMAIN, VkShaderStageFlagBits::VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT},
-    {SHADER_KIND::SHADER_KIND_COMPUTE, VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT}
+    {GRAPHICS_SHADER_KIND::SHADER_KIND_VERTEX, VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT},
+    {GRAPHICS_SHADER_KIND::SHADER_KIND_PIXEL, VkShaderStageFlagBits::VK_SHADER_STAGE_FRAGMENT_BIT},
+    {GRAPHICS_SHADER_KIND::SHADER_KIND_GEOMETRY, VkShaderStageFlagBits::VK_SHADER_STAGE_GEOMETRY_BIT},
+    {GRAPHICS_SHADER_KIND::SHADER_KIND_HULL, VkShaderStageFlagBits::VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT},
+    {GRAPHICS_SHADER_KIND::SHADER_KIND_DOMAIN, VkShaderStageFlagBits::VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT}
 };
 
 Satoshi::VKShader::VKShader(const ShaderGroup& shaderGroup, const std::initializer_list<BufferElement>& elements) :

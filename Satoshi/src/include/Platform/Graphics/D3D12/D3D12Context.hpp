@@ -51,7 +51,6 @@ namespace Satoshi
         virtual void ReceiveCommands() override;
         virtual void DispatchCommands() override;
         virtual void Draw(uint32_t elements) override;
-        virtual void SetTopology() override;
         virtual void NewFrame() override;
         virtual void EndFrame() override;
         virtual void Present() override;
