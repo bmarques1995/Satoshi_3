@@ -24,8 +24,10 @@ void Satoshi::GL4VertexBuffer::Stage() const
 	glBindVertexArray(m_VertexArray);
 }
 
-void Satoshi::GL4VertexBuffer::RegisterLayout()
+void Satoshi::GL4VertexBuffer::RegisterLayout(IndexBuffer* indexBuffer)
 {
+	Stage();
+	indexBuffer->Stage();
 	auto nativeElements = m_Layout.GetElements();
 
 	for (size_t i = 0; i < nativeElements.size(); i++)

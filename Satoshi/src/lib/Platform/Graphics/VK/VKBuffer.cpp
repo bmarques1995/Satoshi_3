@@ -111,7 +111,7 @@ void Satoshi::VKVertexBuffer::Stage() const
     vkCmdBindVertexBuffers(m_CommandBuffer, 0, 1, &m_VertexBuffer, &offset);
 }
 
-void Satoshi::VKVertexBuffer::RegisterLayout()
+void Satoshi::VKVertexBuffer::RegisterLayout(IndexBuffer* indexBuffer)
 {
 }
 

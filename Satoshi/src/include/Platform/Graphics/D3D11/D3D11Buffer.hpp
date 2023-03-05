@@ -1,3 +1,5 @@
+#ifdef ST_PLATFORM_WINDOWS
+
 #ifndef D3D11_BUFFER_HPP
 #define D3D11_BUFFER_HPP
 
@@ -13,7 +15,7 @@ namespace Satoshi
 		~D3D11VertexBuffer();
 
 		virtual void Stage() const override;
-		virtual void RegisterLayout() override;
+		virtual void RegisterLayout(IndexBuffer* indexBuffer) override;
 	private:
 		uint32_t m_Stride;
 		ComPtr<ID3D11Buffer> m_VertexBuffer;
@@ -36,3 +38,5 @@ namespace Satoshi
 }
 
 #endif //D3D11_BUFFER_HPP
+
+#endif

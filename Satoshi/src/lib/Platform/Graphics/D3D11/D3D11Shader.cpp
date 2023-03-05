@@ -1,3 +1,5 @@
+#ifdef ST_PLATFORM_WINDOWS
+
 #include "Platform/Graphics/D3D11/D3D11Shader.hpp"
 #include "Satoshi.hpp"
 
@@ -189,3 +191,5 @@ DXGI_FORMAT Satoshi::D3D11Shader::GetFormat(ShaderDataType type)
     default: return DXGI_FORMAT_UNKNOWN;
     }
 }
+
+#endif

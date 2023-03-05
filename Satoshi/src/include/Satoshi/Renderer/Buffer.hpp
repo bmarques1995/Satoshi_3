@@ -7,15 +7,6 @@
 
 namespace Satoshi
 {
-	class VertexBuffer
-	{
-	public:
-		virtual void Stage() const = 0;
-		virtual void RegisterLayout() = 0;
-
-		static VertexBuffer* Create(const void* data, size_t size, const BufferLayout& layout, GRAPHICS_API api);
-	};
-
 	class IndexBuffer
 	{
 	public:
@@ -25,6 +16,15 @@ namespace Satoshi
 		static IndexBuffer* Create(const void* data, size_t count, GRAPHICS_API api);
 	protected:
 		uint32_t m_Count;
+	};
+
+	class VertexBuffer
+	{
+	public:
+		virtual void Stage() const = 0;
+		virtual void RegisterLayout(IndexBuffer* indexBuffer) = 0;
+
+		static VertexBuffer* Create(const void* data, size_t size, const BufferLayout& layout, GRAPHICS_API api);
 	};
 }
 

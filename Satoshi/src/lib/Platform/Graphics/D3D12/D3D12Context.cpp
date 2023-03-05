@@ -71,6 +71,10 @@ void Satoshi::D3D12Context::DispatchCommands()
 
 void Satoshi::D3D12Context::Draw(uint32_t elements)
 {
+	m_CommandList->RSSetViewports(1, &m_Viewport);
+	m_CommandList->RSSetScissorRects(1, &m_ScissorRect);
+	m_CommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_CommandList->DrawIndexedInstanced(elements, 1, 0, 0, 0);
 }
 
 void Satoshi::D3D12Context::SetTopology()
@@ -115,7 +119,8 @@ void Satoshi::D3D12Context::GetGPUName(std::string* output)
 
 std::any Satoshi::D3D12Context::GetContextRunners()
 {
-	return nullptr;
+	D3D12Data d3d12Data = { m_Device.Get(), m_CommandList.Get()};
+	return d3d12Data;
 }
 
 void Satoshi::D3D12Context::OnResize(WindowResizeEvent& e)

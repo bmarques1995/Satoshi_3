@@ -13,7 +13,7 @@ namespace Satoshi
         ~GL4VertexBuffer();
 
         virtual void Stage() const override;
-        virtual void RegisterLayout() override;
+        virtual void RegisterLayout(IndexBuffer* indexBuffer) override;
 
     private:
         uint32_t m_VertexBuffer, m_VertexArray;

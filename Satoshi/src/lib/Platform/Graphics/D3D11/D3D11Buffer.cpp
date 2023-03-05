@@ -1,3 +1,5 @@
+#ifdef ST_PLATFORM_WINDOWS
+
 #include "Platform/Graphics/D3D11/D3D11Buffer.hpp"
 #include "Satoshi.hpp"
 
@@ -38,7 +40,7 @@ void Satoshi::D3D11VertexBuffer::Stage() const
     m_Context->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &m_Stride, &offset);
 }
 
-void Satoshi::D3D11VertexBuffer::RegisterLayout()
+void Satoshi::D3D11VertexBuffer::RegisterLayout(IndexBuffer* indexBuffer)
 {
 }
 
@@ -82,3 +84,5 @@ uint32_t Satoshi::D3D11IndexBuffer::GetCount() const
 {
 	return m_Count;
 }
+
+#endif

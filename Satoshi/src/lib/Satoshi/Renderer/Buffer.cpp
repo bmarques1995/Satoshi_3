@@ -3,7 +3,7 @@
 #include "Platform/Graphics/VK/VKBuffer.hpp"
 #ifdef ST_PLATFORM_WINDOWS
 #include "Platform/Graphics/D3D11/D3D11Buffer.hpp"
-//#include "Platform/Graphics/D3D12/D3D12Buffer.hpp"
+#include "Platform/Graphics/D3D12/D3D12Buffer.hpp"
 #endif // ST_PLATFORM_WINDOWS
 
 Satoshi::VertexBuffer* Satoshi::VertexBuffer::Create(const void* data, size_t size, const BufferLayout& layout, GRAPHICS_API api)
@@ -15,10 +15,10 @@ Satoshi::VertexBuffer* Satoshi::VertexBuffer::Create(const void* data, size_t si
 		case Satoshi::GRAPHICS_API::VK:
 			return new VKVertexBuffer(data, size, layout.GetStride());
 #ifdef ST_PLATFORM_WINDOWS
-	case Satoshi::GRAPHICS_API::D3D11:
-		return new D3D11VertexBuffer(data, size, layout.GetStride());
-		/*case Satoshi::GRAPHICS_API::D3D12:
-			return new D3D12VertexBuffer(window, width, height);*/
+		case Satoshi::GRAPHICS_API::D3D11:
+			return new D3D11VertexBuffer(data, size, layout.GetStride());
+		case Satoshi::GRAPHICS_API::D3D12:
+			return new D3D12VertexBuffer(data, size, layout.GetStride());
 #endif // ST_PLATFORM_WINDOWS
 	default:
 		return nullptr;
@@ -34,10 +34,10 @@ Satoshi::IndexBuffer* Satoshi::IndexBuffer::Create(const void* data, size_t coun
 		case Satoshi::GRAPHICS_API::VK:
 			return new VKIndexBuffer(data, count);
 #ifdef ST_PLATFORM_WINDOWS
-	case Satoshi::GRAPHICS_API::D3D11:
-		return new D3D11IndexBuffer(data, count);
-		/*case Satoshi::GRAPHICS_API::D3D12:
-			return new D3D12IndexBuffer(window, width, height);*/
+		case Satoshi::GRAPHICS_API::D3D11:
+			return new D3D11IndexBuffer(data, count);
+		case Satoshi::GRAPHICS_API::D3D12:
+			return new D3D12IndexBuffer(data, count);
 #endif // ST_PLATFORM_WINDOWS
 	default:
 		return nullptr;

@@ -32,6 +32,12 @@ namespace Satoshi
         D3D12_RESOURCE_BARRIER Barrier = {};
     };
 
+    struct D3D12Data
+    {
+        ID3D12Device* Device;
+        ID3D12GraphicsCommandList* CommandList;
+    };
+
     class D3D12Context : public GraphicsContext
     {
     public:
