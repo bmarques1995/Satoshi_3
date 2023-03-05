@@ -19,3 +19,9 @@
 [submodule "Satoshi/vendor/jsoncpp"]
 	path = Satoshi/vendor/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "Satoshi/vendor/vk_mem_alloc"]
+	path = Satoshi/vendor/vk_mem_alloc
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git
+[submodule "Satoshi/vendor/d3d12_mem_alloc"]
+	path = Satoshi/vendor/d3d12_mem_alloc
+	url = https://github.com/GPUOpen-LibrariesAndSDKs/D3D12MemoryAllocator.git

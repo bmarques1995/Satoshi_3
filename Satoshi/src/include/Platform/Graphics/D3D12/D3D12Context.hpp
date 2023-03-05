@@ -10,6 +10,7 @@
 #include <dxgi1_6.h>
 #include <dxgidebug.h>
 #include <windows.h>
+#include <D3D12MemAlloc.h>
 
 #include <wrl.h>
 
@@ -36,6 +37,7 @@ namespace Satoshi
     {
         ID3D12Device* Device;
         ID3D12GraphicsCommandList* CommandList;
+        D3D12MA::Allocator* Allocator;
     };
 
     class D3D12Context : public GraphicsContext
@@ -74,6 +76,8 @@ namespace Satoshi
         void CreateRenderTargetView();
         void CreateViewport(uint32_t width, uint32_t height);
 
+        void CreateAllocator();
+
         void UpdateFrameContext(uint64_t* fenceValue, FrameContext** frameContext, uint32_t* backBufferIndex, uint32_t nextFrameIndex);
         void UpdateFence(FrameContext** frameContext, uint64_t* fenceValue);
         void WaitLastFrame();
@@ -89,9 +93,12 @@ namespace Satoshi
         ComPtr<ID3D12CommandQueue> m_CommandQueue;
         FrameContext* m_FrameContext;
         ComPtr<ID3D12GraphicsCommandList> m_CommandList;
+        ComPtr<D3D12MA::Allocator> m_Allocator;
+
         ComPtr<ID3D12Fence> m_Fence;
         HANDLE m_FenceEvent;
-        ComPtr<IDXGIAdapter1> m_Adapter;
+        
+        ComPtr<IDXGIAdapter1> m_Adapter1;
         ComPtr<IDXGISwapChain3> m_SwapChain;
         HANDLE m_SwapChainWaitableObject;
         ID3D12Resource** m_RenderTargetResource = nullptr;

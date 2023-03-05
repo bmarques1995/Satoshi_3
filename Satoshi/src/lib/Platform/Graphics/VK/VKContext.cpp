@@ -28,6 +28,7 @@ Satoshi::VKContext::VKContext(StWindowHandle window, uint32_t maxFramesInFlight)
 	CreateCommandBuffer();
 	CreateSyncObjects();
 	CreateViewport();
+	CreateAllocator();
 }
 
 Satoshi::VKContext::~VKContext()
@@ -204,7 +205,7 @@ void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
 
 std::any Satoshi::VKContext::GetContextRunners()
 {
-	VKData vkData = { m_LogicalDevice, m_CurrentDevice, m_CommandBuffer, m_CommandPool, m_RenderPass, m_GraphicsQueue };
+	VKData vkData = { m_LogicalDevice, m_CurrentDevice, m_CommandBuffer, m_CommandPool, m_RenderPass, m_GraphicsQueue, m_Allocator };
 	return vkData;
 }
 
@@ -646,6 +647,18 @@ void Satoshi::VKContext::CreateViewport()
 
 	m_ScissorRect.offset = { 0, 0 };
 	m_ScissorRect.extent = m_SwapChainExtent;
+}
+
+void Satoshi::VKContext::CreateAllocator()
+{
+	VkResult vk_r;
+	VmaAllocatorCreateInfo allocatorInfo = {};
+	allocatorInfo.physicalDevice = m_CurrentDevice;
+	allocatorInfo.device = m_LogicalDevice;
+	allocatorInfo.instance = m_Instance;
+
+	vk_r = vmaCreateAllocator(&allocatorInfo, &m_Allocator);
+	assert(vk_r == VK_SUCCESS);
 }
 
 uint32_t Satoshi::VKContext::RatePhysicalDevice(VkPhysicalDevice device)

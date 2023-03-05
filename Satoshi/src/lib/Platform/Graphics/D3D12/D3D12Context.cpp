@@ -23,6 +23,7 @@ Satoshi::D3D12Context::D3D12Context(StWindowHandle window, uint32_t width, uint3
 	CreateSwapChain(window);
 	CreateRenderTargetView();
 	CreateViewport(width, height);
+	CreateAllocator();
 }
 
 Satoshi::D3D12Context::~D3D12Context()
@@ -112,14 +113,14 @@ void Satoshi::D3D12Context::SetVSync(bool isVSync)
 void Satoshi::D3D12Context::GetGPUName(std::string* output)
 {
 	auto adapterDescription = DXGI_ADAPTER_DESC();
-	m_Adapter->GetDesc(&adapterDescription);
+	m_Adapter1->GetDesc(&adapterDescription);
 	std::wstring name = adapterDescription.Description;
 	*output = std::string(name.begin(), name.end());
 }
 
 std::any Satoshi::D3D12Context::GetContextRunners()
 {
-	D3D12Data d3d12Data = { m_Device.Get(), m_CommandList.Get()};
+	D3D12Data d3d12Data = { m_Device.Get(), m_CommandList.Get(), m_Allocator.Get()};
 	return d3d12Data;
 }
 
@@ -131,6 +132,7 @@ void Satoshi::D3D12Context::OnResize(WindowResizeEvent& e)
 	Console::Log("Max swapchain {0}", DXGI_MAX_SWAP_CHAIN_BUFFERS);
 	assert(SUCCEEDED(result) && "Failed to resize swapchain.");
 	CreateRenderTargetView();
+	CreateViewport(e.GetWidth(), e.GetHeight());
 }
 
 void Satoshi::D3D12Context::CreateDevice()
@@ -274,7 +276,8 @@ void Satoshi::D3D12Context::CreateSwapChain(HWND windowHandle)
 	hr = swapChainTemp->QueryInterface(IID_PPV_ARGS(m_SwapChain.GetAddressOf()));
 	assert(hr == S_OK);
 
-	hr = dxgiFactory->EnumAdapters1(0, m_Adapter.GetAddressOf());
+
+	hr = dxgiFactory->EnumAdapters1(0, m_Adapter1.GetAddressOf());
 	assert(hr == S_OK);
 
 	swapChainTemp->Release();
@@ -303,6 +306,17 @@ void Satoshi::D3D12Context::CreateViewport(uint32_t width, uint32_t height)
 	m_Viewport.Height = m_ScissorRect.bottom = (float)height;
 	m_Viewport.MinDepth = .0f;
 	m_Viewport.MaxDepth = 1.0f;
+}
+
+void Satoshi::D3D12Context::CreateAllocator()
+{
+	HRESULT hr;
+	D3D12MA::ALLOCATOR_DESC allocatorDesc = {};
+	allocatorDesc.pDevice = m_Device.Get();
+	allocatorDesc.pAdapter = m_Adapter1.Get();
+
+	hr = D3D12MA::CreateAllocator(&allocatorDesc, m_Allocator.GetAddressOf());
+	assert(hr == S_OK);
 }
 
 void Satoshi::D3D12Context::UpdateFrameContext(uint64_t* fenceValue, FrameContext** frameContext, uint32_t* backBufferIndex, uint32_t nextFrameIndex)

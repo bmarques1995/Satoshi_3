@@ -41,7 +41,7 @@ void Satoshi::D3D11Context::SetVSync(bool isVSync)
 void Satoshi::D3D11Context::GetGPUName(std::string* output)
 {
     auto adapterDescription = DXGI_ADAPTER_DESC();
-    m_Adapter->GetDesc(&adapterDescription);
+    m_Adapter1->GetDesc(&adapterDescription);
     std::wstring name = adapterDescription.Description;
     *output = std::string(name.begin(), name.end());
 }
@@ -154,7 +154,7 @@ void Satoshi::D3D11Context::CreateAdapter()
     IDXGIFactory4* dxgiFactory = nullptr;
     HRESULT hr = CreateDXGIFactory1(IID_PPV_ARGS(&dxgiFactory));
     
-    hr = dxgiFactory->EnumAdapters(0, m_Adapter.GetAddressOf());
+    hr = dxgiFactory->EnumAdapters(0, m_Adapter1.GetAddressOf());
     assert(hr == S_OK);
 
     dxgiFactory->Release();

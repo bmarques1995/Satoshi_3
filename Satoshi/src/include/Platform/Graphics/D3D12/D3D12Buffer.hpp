@@ -11,9 +11,10 @@ namespace Satoshi
 	class D3D12Buffer
 	{
 	protected:
-		void CreateBuffer(const void* data, size_t size, ID3D12Device* device);
+		void CreateBuffer(const void* data, size_t size, ID3D12Device* device, D3D12MA::Allocator* allocator);
 
 		ComPtr<ID3D12Resource> m_Buffer;
+		ComPtr<D3D12MA::Allocation> m_Allocation;
 	};
 
 	class D3D12VertexBuffer : public VertexBuffer, public D3D12Buffer

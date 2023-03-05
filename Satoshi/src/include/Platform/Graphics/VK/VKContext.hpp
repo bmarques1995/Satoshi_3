@@ -3,6 +3,7 @@
 
 #include "Satoshi/Renderer/GraphicsContext.hpp"
 #include <vulkan/vulkan.hpp>
+#include <vk_mem_alloc.h>
 #include <stpch.hpp>
 #include "Satoshi/Core/Core.hpp"
 #include "VKShaderManager.hpp"
@@ -37,6 +38,7 @@ namespace Satoshi
         VkCommandPool_T* CommandPool;
         VkRenderPass_T* RenderPass;
         VkQueue_T* GraphicsQueue;
+        VmaAllocator_T* Allocator;
         
     };
 
@@ -91,6 +93,7 @@ namespace Satoshi
         void RecreateSwapchain();
 
         void CreateViewport();
+        void CreateAllocator();
 
         uint32_t RatePhysicalDevice(VkPhysicalDevice device);
         void SelectPhysicalDevice();
@@ -111,6 +114,7 @@ namespace Satoshi
         VkDescriptorPool m_DescriptorPool;
         VkQueue m_GraphicsQueue;
         VkQueue m_PresentQueue;
+        VmaAllocator m_Allocator;
 
         VkSwapchainKHR m_SwapChain;
         std::vector<VkImage> m_SwapChainImages;

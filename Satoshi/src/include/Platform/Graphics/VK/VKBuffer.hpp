@@ -9,11 +9,8 @@ namespace Satoshi
     class VKBuffer
     {
 	protected:
-        void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory, VkDevice device, VkPhysicalDevice physicalDevice);
-        void CopyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size, VkCommandPool commandPool, VkDevice device, VkQueue graphicsQueue);
-        uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties, VkPhysicalDevice physicalDevice);
-		
-		VkDeviceMemory m_BufferMemory;
+		VmaAllocation m_Allocation;
+		VmaAllocationInfo m_AllocationInfo;
 	};
 
 	class VKVertexBuffer : public VertexBuffer, public VKBuffer

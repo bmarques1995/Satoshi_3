@@ -22,6 +22,7 @@ set(SATOSHI_LIBS
     vulkan-1
     shaderc_combined
     jsoncpp_static
+    VulkanMemoryAllocatord.lib
 )
 
 set(COMMON_LIBS
@@ -39,6 +40,7 @@ dxgi
 dxguid
 d3dcompiler
 opengl32
+D3D12MAd.lib
 )
 
 set(WINDOW_ARG WIN32)
