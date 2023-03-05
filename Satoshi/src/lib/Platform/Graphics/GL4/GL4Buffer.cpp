@@ -57,5 +57,5 @@ void Satoshi::GL4IndexBuffer::Stage() const
 
 uint32_t Satoshi::GL4IndexBuffer::GetCount() const
 {
-	return 0;
+	return m_Count;
 }

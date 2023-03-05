@@ -87,5 +87,5 @@ void Satoshi::VKIndexBuffer::Stage() const
 
 uint32_t Satoshi::VKIndexBuffer::GetCount() const
 {
-    return 0;
+    return m_Count;
 }

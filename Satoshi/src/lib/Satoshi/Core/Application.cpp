@@ -35,7 +35,7 @@ Satoshi::Application::Application()
 
 
 #if defined DEBUG || defined _DEBUG
-	PushLayer(new ImplLayer(shaderGroup, bufferElements));
+	PushLayer(new ImplLayer(shaderGroup, bufferElements, m_Context.get()));
 #endif
 }
 
@@ -58,7 +58,6 @@ void Satoshi::Application::Run()
 		m_Context->SetTopology();
 		for (Layer* layer : m_LayerStack)
 			layer->OnUpdate();
-		m_Context->Draw(3);
 		m_Context->DispatchCommands();
 		m_Context->Present();
 		m_Context->EndFrame();
