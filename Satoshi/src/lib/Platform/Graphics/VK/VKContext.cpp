@@ -199,6 +199,7 @@ void Satoshi::VKContext::OnResize(WindowResizeEvent& e)
 	vkDeviceWaitIdle(m_LogicalDevice);
 
 	RecreateSwapchain();
+	CreateViewport();
 }
 
 std::any Satoshi::VKContext::GetContextRunners()
