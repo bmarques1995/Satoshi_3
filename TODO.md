@@ -5,9 +5,9 @@
 ## In Progress
 
 - Graphics
-  - [ ] Add shader system
-  - [ ] Add vertex and index buffer
-  - [ ] Hello Triangle
+  - [X] Add shader system
+  - [X] Add vertex and index buffer
+  - [X] Hello Triangle
   - [ ] Add Textures
 
 ## Done ✓
